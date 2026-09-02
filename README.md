@@ -19,7 +19,7 @@ Plataforma de comercio electrónico orientada a prendas masculinas de archivo y 
 
 ## Instalación y Ejecución Local
 ```bash
-git clone <URL_DE_TU_REPOSITORIO>
+git clone <https://github.com/Angelromo1540/aevon-outlet.git>
 cd aevon-outlet
 npm install
 ng serve -o
