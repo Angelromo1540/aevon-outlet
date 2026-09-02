@@ -1,0 +1,72 @@
+<div class="modal-overlay" [class.active]="modalService.isOpen()" (click)="modalService.close()">
+  @if (modalService.selectedProduct(); as prod) {
+    <div class="modal-content-card position-relative p-4 p-md-5" (click)="$event.stopPropagation()">
+      <!-- Botón de Cerrar Flotante -->
+      <button class="btn btn-dark rounded-circle position-absolute top-0 end-0 m-4 p-2 lh-1 shadow" 
+              (click)="modalService.close()" style="width: 38px; height: 38px;">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <div class="row g-4 align-items-center">
+        <!-- Imagen -->
+        <div class="col-md-5">
+          <div class="rounded-4 overflow-hidden position-relative bg-sand-card shadow-sm">
+            <span class="position-absolute top-0 start-0 m-3 badge badge-discount px-2 py-1 rounded-pill">
+              {{ prod.discountBadge }}
+            </span>
+            <img [src]="prod.image" [alt]="prod.name" class="w-100" style="height: 380px; object-fit: cover;">
+          </div>
+        </div>
+
+        <!-- Información -->
+        <div class="col-md-7">
+          <span class="text-uppercase small text-muted tracking-wide fw-bold">{{ prod.category }}</span>
+          <h3 class="font-serif text-dark my-2">{{ prod.name }}</h3>
+
+          <div class="d-flex align-items-baseline gap-2 mb-3">
+            <span class="fs-3 fw-bold text-dark">${{ prod.price }}</span>
+            <span class="fs-6 text-decoration-line-through text-muted">${{ prod.originalPrice }}</span>
+            <span class="badge bg-danger rounded-pill px-2 py-1 ms-2" style="font-size: 0.7rem;">
+              Ahorras ${{ prod.originalPrice - prod.price }}
+            </span>
+          </div>
+
+          <p class="text-secondary small mb-3">{{ prod.description }}</p>
+
+          <!-- Tallas -->
+          <div class="mb-3">
+            <label class="small fw-bold text-dark d-block mb-2">Talla:</label>
+            <div class="d-flex gap-2">
+              @for (size of availableSizes; track size) {
+                <button class="btn btn-sm rounded-pill px-3"
+                        [ngClass]="selectedSize() === size ? 'btn-dark' : 'btn-outline-dark'"
+                        (click)="selectedSize.set(size)">
+                  {{ size }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Selector y Botón -->
+          <div class="d-flex gap-2 mb-3">
+            <div class="input-group input-group-sm" style="width: 100px;">
+              <button class="btn btn-outline-secondary" type="button" (click)="changeQty(-1)">-</button>
+              <input type="text" class="form-control text-center bg-white border-secondary" [value]="quantity()" readonly>
+              <button class="btn btn-outline-secondary" type="button" (click)="changeQty(1)">+</button>
+            </div>
+
+            <button class="btn btn-editorial flex-grow-1 py-2 text-uppercase small tracking-wide shadow-sm" (click)="addToCart()">
+              <i class="bi bi-bag-plus me-1"></i> Agregar a la Bolsa
+            </button>
+          </div>
+
+          @if (addedToast()) {
+            <div class="alert alert-success py-2 px-3 small rounded-pill mb-0 text-center" role="alert">
+              <i class="bi bi-check-circle-fill me-1"></i> ¡Prenda agregada con éxito!
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

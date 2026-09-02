@@ -1,0 +1,85 @@
+<header class="border-bottom border-dark border-opacity-10 py-3 px-lg-5 px-3 bg-transparent">
+  <div class="d-flex align-items-center justify-content-between">
+    <!-- Logotipo -->
+    <a routerLink="/" class="text-decoration-none text-dark d-flex align-items-center">
+      <span class="fs-4 font-serif fw-bold tracking-wide">aevon</span>
+      <span class="badge bg-dark text-uppercase ms-2 px-2 py-1" style="font-size: 0.65rem;">Outlet</span>
+    </a>
+
+    <!-- Menú -->
+    <nav class="d-none d-md-flex gap-4">
+      <a routerLink="/" class="text-decoration-none text-dark fw-medium small">Inicio</a>
+      <a href="#catalogo" class="text-decoration-none text-muted small">Catálogo</a>
+      <a routerLink="/login" class="text-decoration-none text-muted small">Mi Cuenta</a>
+    </nav>
+
+    <!-- Contadores Dinámicos y Modo Oscuro -->
+    <div class="d-flex align-items-center gap-3">
+      <!-- Botón Modo Oscuro / Claro -->
+      <button class="btn btn-link text-dark p-0" 
+              (click)="themeService.toggleTheme()" 
+              [title]="themeService.isDarkMode() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'">
+        <i class="bi" [class.bi-moon-stars-fill]="themeService.isDarkMode()" [class.bi-sun-fill]="!themeService.isDarkMode()" style="font-size: 1.2rem;"></i>
+      </button>
+
+      <!-- Lista de Deseos -->
+      <button class="btn btn-link text-dark p-0 position-relative" title="Lista de Deseos" data-bs-toggle="modal" data-bs-target="#wishlistModal">
+        <i class="bi bi-heart fs-5"></i>
+        @if (cartService.wishlist().length > 0) {
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size: 0.65rem;">
+            {{ cartService.wishlist().length }}
+          </span>
+        }
+      </button>
+
+      <!-- Bolsa -->
+      <button class="btn btn-editorial d-flex align-items-center gap-2 py-2 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
+        <i class="bi bi-bag"></i>
+        <span class="d-none d-sm-inline">Bolsa</span>
+        <span class="badge bg-dark rounded-pill">{{ cartService.getTotalItems() }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Modal de Lista de Deseos -->
+<div class="modal fade" id="wishlistModal" tabindex="-1" aria-labelledby="wishlistModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4 border-0 p-3" style="background-color: var(--bg-sand); color: var(--text-main);">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title font-serif text-dark" id="wishlistModalLabel">Lista de Deseos ({{ cartService.wishlist().length }})</h5>
+        <button type="button" class="btn-close" [class.btn-close-white]="themeService.isDarkMode()" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @if (wishlistProducts().length > 0) {
+          <div class="row row-cols-1 row-cols-md-2 g-3">
+            @for (product of wishlistProducts(); track product.id) {
+              <div class="col">
+                <div class="d-flex gap-3 bg-inner-custom p-3 rounded-3 shadow-sm align-items-center border border-dark border-opacity-10">
+                  <img [src]="product.image" [alt]="product.name" class="rounded-2" style="width: 70px; height: 85px; object-fit: cover;">
+                  <div class="flex-grow-1">
+                    <h6 class="font-serif small mb-1 text-dark">{{ product.name }}</h6>
+                    <span class="fw-bold small text-dark d-block mb-2">${{ product.price }}</span>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-sm btn-dark rounded-pill px-3" (click)="moveToBag(product)">
+                        <i class="bi bi-bag-plus me-1"></i> A la Bolsa
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger rounded-circle p-1" (click)="cartService.toggleWishlist(product.id)" title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="text-center py-5 text-muted">
+            <i class="bi bi-heart fs-1 mb-2 d-block"></i>
+            <p class="small">Aún no has guardado prendas en tus favoritos.</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

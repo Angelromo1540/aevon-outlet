@@ -1,0 +1,138 @@
+<app-navbar></app-navbar>
+
+<main class="min-vh-100">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Componentes globales flotantes -->
+<app-cart-drawer></app-cart-drawer>
+<app-quick-view-modal></app-quick-view-modal>
+<app-toast-container></app-toast-container>
+
+<!-- Píldora de Acceso Rápido en Scroll -->
+<div class="floating-action-bar rounded-pill d-flex align-items-center" [class.visible]="showFloatingActions()">
+  <!-- Botón Volver Arriba -->
+  <button class="btn-floating-pill text-muted" (click)="scrollToTop()" title="Volver al inicio">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <div class="floating-divider"></div>
+
+  <!-- Botón Favoritos -->
+  <button class="btn-floating-pill position-relative" data-bs-toggle="modal" data-bs-target="#wishlistModal" title="Ver Favoritos">
+    <i class="bi bi-heart"></i>
+    @if (cartService.wishlist().length > 0) {
+      <span class="badge rounded-pill bg-dark" style="font-size: 0.65rem;">
+        {{ cartService.wishlist().length }}
+      </span>
+    }
+  </button>
+
+  <div class="floating-divider"></div>
+
+  <!-- Botón Bolsa de Compras -->
+  <button class="btn-floating-pill btn-editorial py-1 px-3" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" title="Abrir Bolsa">
+    <i class="bi bi-bag"></i>
+    <span>{{ cartService.getTotalItems() }}</span>
+  </button>
+</div>
+
+<!-- Modal Flotante de Información / Legal / Contacto -->
+<div class="info-overlay" [class.active]="activeInfoModal() !== null" (click)="closeInfo()">
+  @if (activeInfoModal(); as modalType) {
+    <div class="info-card p-4 p-md-5 position-relative" (click)="$event.stopPropagation()">
+      <button class="btn btn-dark rounded-circle position-absolute top-0 end-0 m-4 p-2 lh-1 shadow-sm" 
+              (click)="closeInfo()" style="width: 36px; height: 36px;">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <!-- Contenido: Políticas de Envío -->
+      @if (modalType === 'shipping') {
+        <div>
+          <div class="d-inline-flex p-3 rounded-circle bg-dark text-light mb-3">
+            <i class="bi bi-truck fs-3"></i>
+          </div>
+          <span class="text-uppercase small text-muted tracking-wide fw-bold d-block">Logística y Entregas</span>
+          <h3 class="font-serif my-2 text-dark">Políticas de Envío</h3>
+          <p class="text-secondary small">
+            En <strong>AEVON Outlet</strong> cada prenda es inspeccionada y empaquetada bajo estándares sartoriales para asegurar su estado impecable.
+          </p>
+          <ul class="text-secondary small ps-3 mb-4">
+            <li class="mb-2"><strong>Envío Estándar:</strong> 3 a 5 días hábiles a toda la República ($120 MXN).</li>
+            <li class="mb-2"><strong>Envío Gratuito:</strong> En todas las compras superiores a $1,500 MXN.</li>
+            <li><strong>Rastreo:</strong> Recibirás tu guía por correo al confirmar la preparación de tu orden.</li>
+          </ul>
+          <button class="btn btn-dark rounded-pill w-100 py-2" (click)="closeInfo()">Entendido</button>
+        </div>
+      }
+
+      <!-- Contenido: Términos y Condiciones -->
+      @if (modalType === 'terms') {
+        <div>
+          <div class="d-inline-flex p-3 rounded-circle bg-dark text-light mb-3">
+            <i class="bi bi-shield-check fs-3"></i>
+          </div>
+          <span class="text-uppercase small text-muted tracking-wide fw-bold d-block">Garantía Sartorial</span>
+          <h3 class="font-serif my-2 text-dark">Términos y Condiciones</h3>
+          <p class="text-secondary small">
+            Nuestras piezas de archivo cuentan con precios de liquidación y existencias limitadas:
+          </p>
+          <ul class="text-secondary small ps-3 mb-4">
+            <li class="mb-2"><strong>Prendas de Archivo:</strong> Los productos en liquidación cuentan con cambios de talla sujetos a disponibilidad de inventario.</li>
+            <li class="mb-2"><strong>Garantía de Autenticidad:</strong> Garantizamos materiales legítimos (Lana Virgen, Piel Flor, Lino Orgánico).</li>
+            <li><strong>Plazo de Devolución:</strong> Hasta 15 días naturales tras recibir la orden.</li>
+          </ul>
+          <button class="btn btn-dark rounded-pill w-100 py-2" (click)="closeInfo()">Aceptar</button>
+        </div>
+      }
+
+      <!-- Contenido: Contacto -->
+      @if (modalType === 'contact') {
+        <div>
+          <div class="d-inline-flex p-3 rounded-circle bg-dark text-light mb-3">
+            <i class="bi bi-envelope-paper fs-3"></i>
+          </div>
+          <span class="text-uppercase small text-muted tracking-wide fw-bold d-block">Atención Personalizada</span>
+          <h3 class="font-serif my-2 text-dark">Contacto y Asesoría</h3>
+          <p class="text-secondary small mb-3">
+            ¿Requieres asistencia sobre medidas, materiales o el estado de tu pedido? Nuestro equipo sartorial está listo para atenderte.
+          </p>
+          <div class="bg-sand-sidebar p-3 rounded-3 mb-4 small">
+            <div class="mb-2"><i class="bi bi-envelope me-2"></i><strong>Email:</strong> soporte@aevonoutlet.com</div>
+            <div class="mb-2"><i class="bi bi-whatsapp me-2"></i><strong>WhatsApp:</strong> +52 (55) 8492-1040</div>
+            <div><i class="bi bi-clock me-2"></i><strong>Horario:</strong> Lunes a Viernes, 9:00 AM - 7:00 PM</div>
+          </div>
+          <button class="btn btn-editorial w-100 py-2" (click)="closeInfo()">Cerrar</button>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- Footer Principal -->
+<footer class="bg-dark text-light py-5 mt-5 border-top border-secondary">
+  <div class="container text-center">
+    <h5 class="font-serif tracking-wide mb-2">AEVON | Men's Archive Outlet</h5>
+    <p class="text-secondary small mb-3">Prendas con diseño sartorial atemporal y precios de archivo.</p>
+    
+    <div class="d-flex justify-content-center gap-4 small text-secondary mb-3">
+      <button class="btn btn-link text-secondary p-0 text-decoration-none small" (click)="openInfo('shipping')">
+        Políticas de Envío
+      </button>
+      <button class="btn btn-link text-secondary p-0 text-decoration-none small" (click)="openInfo('terms')">
+        Términos y Condiciones
+      </button>
+      <button class="btn btn-link text-secondary p-0 text-decoration-none small" (click)="openInfo('contact')">
+        Contacto
+      </button>
+    </div>
+    
+    <div>
+      <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" style="font-size: 0.75rem;" (click)="resetApplicationData()">
+        <i class="bi bi-arrow-counterclockwise me-1"></i> Restablecer Datos de Demostración
+      </button>
+    </div>
+
+    <small class="text-muted d-block mt-4">© 2026 AEVON Outlet. Todos los derechos reservados.</small>
+  </div>
+</footer>

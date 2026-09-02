@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+  --bg-sand: #f4efe6;
+  --bg-card: #e9e2d5;
+  --bg-sidebar: #e5ddd0;
+  --bg-inner: #ffffff;
+  --text-main: #1c1917;
+  --text-muted-custom: #6c757d;
+  --border-color: rgba(28, 25, 23, 0.1);
+  --accent-gold: #c28e46;
+  --accent-gold-hover: #a87635;
+}
+
+body.dark-theme {
+  --bg-sand: #141312;
+  --bg-card: #1f1d1a;
+  --bg-sidebar: #282522;
+  --bg-inner: #24221f;
+  --text-main: #ece6dc;
+  --text-muted-custom: #a8a29e;
+  --border-color: rgba(236, 230, 220, 0.12);
+  --accent-gold: #d4a359;
+  --accent-gold-hover: #b8863f;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-sand);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+.bg-sand-sidebar {
+  background-color: var(--bg-sidebar) !important;
+  color: var(--text-main);
+}
+
+.bg-sand-card {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main);
+}
+
+.bg-inner-custom {
+  background-color: var(--bg-inner) !important;
+  color: var(--text-main);
+}
+
+.text-dark {
+  color: var(--text-main) !important;
+}
+
+.text-muted {
+  color: var(--text-muted-custom) !important;
+}
+
+.border-dark {
+  border-color: var(--border-color) !important;
+}
+
+.btn-editorial {
+  background-color: var(--accent-gold);
+  color: #141312;
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-editorial:hover {
+  background-color: var(--accent-gold-hover);
+  color: #141312;
+}
+
+.badge-discount {
+  background-color: #b02a37;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ==========================================================
+   SISTEMA DE ANIMACIONES GLOBALES & FLUIDEZ EDITORIAL
+   ========================================================== */
+
+/* 1. Suavizado en botones e iconos */
+.btn, .badge, button {
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn:active {
+  transform: scale(0.95) !important;
+}
+
+.btn-editorial:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(194, 142, 70, 0.3) !important;
+}
+
+/* 2. Tarjetas de producto reactivas */
+.card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card:hover .transition-img {
+  transform: scale(1.06);
+}
+
+.transition-img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 3. Animación de entrada escalonada para elementos */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.row.row-cols-1 .col,
+.row.row-cols-sm-2 .col,
+.row.row-cols-lg-3 .col {
+  animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* Escalonamiento de aparición (Staggered Animation) */
+.col:nth-child(1) { animation-delay: 0.05s; }
+.col:nth-child(2) { animation-delay: 0.1s; }
+.col:nth-child(3) { animation-delay: 0.15s; }
+.col:nth-child(4) { animation-delay: 0.2s; }
+.col:nth-child(5) { animation-delay: 0.25s; }
+.col:nth-child(6) { animation-delay: 0.3s; }
+
+/* 4. Efecto de pulsación en Badges y Contadores */
+.badge {
+  animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgePop {
+  0% { transform: scale(0.7); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* 5. Transición suave del Offcanvas / Cart Slideover */
+.offcanvas.offcanvas-end {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 6. Inputs y Búsqueda con foco dinámico */
+.form-control, .form-select {
+  transition: all 0.3s ease !important;
+}
+
+.form-control:focus, .form-select:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 7. Navegación fluida al cambiar de vista */
+main {
+  animation: viewFade 0.35s ease-out;
+}
+
+@keyframes viewFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

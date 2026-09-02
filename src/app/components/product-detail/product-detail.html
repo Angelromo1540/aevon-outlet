@@ -1,0 +1,110 @@
+<div class="container my-5">
+  <!-- Migas de pan (Breadcrumbs) -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none text-muted">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none text-muted">Catálogo</a></li>
+      <li class="breadcrumb-item active text-dark fw-semibold" aria-current="page">{{ product()?.name }}</li>
+    </ol>
+  </nav>
+
+  @if (product(); as prod) {
+    <div class="row g-5 align-items-start">
+      <!-- Columna Galería / Imagen -->
+      <div class="col-lg-6">
+        <div class="rounded-4 overflow-hidden position-relative shadow-sm bg-sand-card">
+          <span class="position-absolute top-0 start-0 m-3 badge badge-discount px-3 py-2 rounded-pill">
+            {{ prod.discountBadge }}
+          </span>
+          <img [src]="prod.image" [alt]="prod.name" class="w-100" style="max-height: 580px; object-fit: cover;">
+        </div>
+      </div>
+
+      <!-- Columna Información y Compra -->
+      <div class="col-lg-6">
+        <span class="text-uppercase small text-muted tracking-wide fw-bold">{{ prod.category }}</span>
+        <h1 class="font-serif display-5 fw-normal text-dark my-2">{{ prod.name }}</h1>
+
+        <!-- Valoración y Stock -->
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="text-warning small">
+            <i class="bi bi-star-fill"></i>
+            <span class="text-dark fw-bold ms-1">{{ prod.rating }}</span>
+            <span class="text-muted ms-1">(Reseñas verificadas)</span>
+          </div>
+          <span class="text-muted">|</span>
+          <span [ngClass]="prod.stock <= 3 ? 'text-danger fw-bold' : 'text-success fw-medium'" class="small">
+            {{ prod.stock <= 3 ? '¡Últimas ' + prod.stock + ' piezas disponibles!' : 'En Stock (' + prod.stock + ')' }}
+          </span>
+        </div>
+
+        <!-- Precios -->
+        <div class="d-flex align-items-baseline gap-3 my-4">
+          <span class="display-6 fw-bold text-dark">${{ prod.price }}</span>
+          <span class="fs-4 text-decoration-line-through text-muted">${{ prod.originalPrice }}</span>
+          <span class="badge bg-danger rounded-pill px-2 py-1 small">Ahorras ${{ prod.originalPrice - prod.price }}</span>
+        </div>
+
+        <p class="text-secondary leading-relaxed mb-4">{{ prod.description }}</p>
+
+        <!-- Selector de Tallas -->
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label class="small fw-bold text-dark">Selecciona tu Talla:</label>
+            <a href="#" class="small text-muted text-decoration-none"><i class="bi bi-rulers me-1"></i>Guía de medidas</a>
+          </div>
+          <div class="d-flex gap-2">
+            @for (size of availableSizes; track size) {
+              <button class="btn btn-sm rounded-pill px-3 py-2"
+                      [ngClass]="selectedSize() === size ? 'btn-dark' : 'btn-outline-dark'"
+                      (click)="selectedSize.set(size)">
+                {{ size }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Selector de Cantidad y Botón de Compra -->
+        <div class="d-flex gap-3 mb-5">
+          <div class="input-group" style="width: 120px;">
+            <button class="btn btn-outline-secondary" type="button" (click)="changeQty(-1)">-</button>
+            <input type="text" class="form-control text-center bg-white border-secondary" [value]="quantity()" readonly>
+            <button class="btn btn-outline-secondary" type="button" (click)="changeQty(1)">+</button>
+          </div>
+
+          <button class="btn btn-editorial flex-grow-1 py-3 text-uppercase small tracking-wide shadow-sm" (click)="addToCart()">
+            <i class="bi bi-bag-plus me-2"></i> Añadir a la Bolsa
+          </button>
+        </div>
+
+        <!-- Toast de Notificación -->
+        @if (addedToast()) {
+          <div class="alert alert-success d-flex align-items-center rounded-3 p-3 mb-4" role="alert">
+            <i class="bi bi-check-circle-fill fs-5 me-2"></i>
+            <div>Prenda agregada a tu bolsa de compras.</div>
+          </div>
+        }
+
+        <!-- Tabla de Ficha Técnica -->
+        <div class="border-top border-dark border-opacity-10 pt-4">
+          <h5 class="font-serif mb-3">Especificaciones de Confección</h5>
+          <table class="table table-sm table-borderless text-secondary small">
+            <tbody>
+              @for (spec of getSpecsList(); track spec.key) {
+                <tr class="border-bottom border-dark border-opacity-10">
+                  <td class="fw-bold py-2" style="width: 40%;">{{ spec.key }}</td>
+                  <td class="py-2 text-dark">{{ spec.value }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="text-center py-5">
+      <h3 class="font-serif text-muted">Producto no encontrado</h3>
+      <a routerLink="/" class="btn btn-dark rounded-pill mt-3 px-4">Volver al catálogo</a>
+    </div>
+  }
+</div>

@@ -1,0 +1,58 @@
+.auth-hero-wrapper {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 3rem 1rem;
+}
+
+/* Fondo con imagen de boutique de alta costura y desenfoque */
+.auth-bg-store {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px) brightness(0.65);
+  transform: scale(1.05);
+  z-index: 1;
+  transition: transform 10s ease-out;
+}
+
+/* Sutil efecto de acercamiento al pasar el ratón */
+.auth-hero-wrapper:hover .auth-bg-store {
+  transform: scale(1.1);
+}
+
+/* Capa de degradado editorial para integrarlo con el tema */
+.auth-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(20, 19, 18, 0.75) 100%);
+  z-index: 2;
+}
+
+/* Tarjeta flotante con efecto cristal translúcido (Glassmorphism) */
+.glass-auth-card {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 480px;
+  background: rgba(244, 239, 230, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+/* Adaptación automática al modo oscuro */
+:host-context(body.dark-theme) .glass-auth-card {
+  background: rgba(28, 25, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}

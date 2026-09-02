@@ -1,0 +1,17 @@
+.btn-outline-secondary:hover {
+  background-color: var(--text-main) !important;
+  color: var(--bg-sand) !important;
+  transform: translateY(-2px);
+}
+
+.btn-light:hover {
+  transform: scale(1.12) !important;
+}
+
+.form-range::-webkit-slider-thumb {
+  transition: transform 0.2s ease;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}

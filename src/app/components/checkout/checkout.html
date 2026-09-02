@@ -1,0 +1,205 @@
+<div class="container my-5">
+  <div class="row g-5">
+    
+    <!-- Columna Izquierda: Formulario Multistep -->
+    <div class="col-lg-7">
+      
+      <!-- Stepper / Indicador de Pasos -->
+      <div class="d-flex justify-content-between align-items-center mb-5 border-bottom border-dark border-opacity-10 pb-3">
+        <div class="d-flex align-items-center gap-2" [class.fw-bold]="step() === 1">
+          <span class="badge rounded-circle p-2" [ngClass]="step() >= 1 ? 'bg-dark' : 'bg-secondary'">1</span>
+          <span class="small">Envío</span>
+        </div>
+        <i class="bi bi-chevron-right text-muted small"></i>
+        <div class="d-flex align-items-center gap-2" [class.fw-bold]="step() === 2">
+          <span class="badge rounded-circle p-2" [ngClass]="step() >= 2 ? 'bg-dark' : 'bg-secondary'">2</span>
+          <span class="small">Pago</span>
+        </div>
+        <i class="bi bi-chevron-right text-muted small"></i>
+        <div class="d-flex align-items-center gap-2" [class.fw-bold]="step() === 3">
+          <span class="badge rounded-circle p-2" [ngClass]="step() === 3 ? 'bg-dark' : 'bg-secondary'">3</span>
+          <span class="small">Confirmación</span>
+        </div>
+      </div>
+
+      <!-- PASO 1: DATOS DE ENVÍO -->
+      @if (step() === 1) {
+        <div class="bg-sand-card p-4 p-md-5 rounded-4 shadow-sm">
+          <h4 class="font-serif mb-4">Dirección de Entrega</h4>
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label small fw-semibold">Nombre Completo</label>
+              <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
+                     placeholder="Nombre y apellidos" [ngModel]="fullName()" (ngModelChange)="fullName.set($event)">
+            </div>
+            <div class="col-12">
+              <label class="form-label small fw-semibold">Calle y Número</label>
+              <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
+                     placeholder="Av. Paseo de la Reforma #123" [ngModel]="address()" (ngModelChange)="address.set($event)">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-semibold">Código Postal</label>
+              <input type="text" class="form-control rounded-pill bg-white border-0 py-2" maxlength="5"
+                     placeholder="88000" [ngModel]="postalCode()" (ngModelChange)="postalCode.set($event); calculateShipping()">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-semibold">Ciudad</label>
+              <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
+                     placeholder="Ciudad" [ngModel]="city()" (ngModelChange)="city.set($event)">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-semibold">Estado</label>
+              <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
+                     placeholder="Estado" [ngModel]="state()" (ngModelChange)="state.set($event)">
+            </div>
+          </div>
+
+          @if (shippingCalculated()) {
+            <div class="alert alert-light mt-4 rounded-3 d-flex justify-content-between align-items-center mb-0">
+              <span class="small"><i class="bi bi-truck me-2"></i>Tarifa de envío estimada:</span>
+              <strong [class.text-success]="shippingCost() === 0">
+                {{ shippingCost() === 0 ? '¡Envío Gratis!' : '$' + shippingCost() + '.00' }}
+              </strong>
+            </div>
+          }
+
+          <button class="btn btn-dark w-100 rounded-pill py-3 mt-4 text-uppercase small tracking-wide" (click)="nextStep()">
+            Continuar al Método de Pago <i class="bi bi-arrow-right ms-2"></i>
+          </button>
+        </div>
+      }
+
+      <!-- PASO 2: MÉTODO DE PAGO -->
+      @if (step() === 2) {
+        <div class="bg-sand-card p-4 p-md-5 rounded-4 shadow-sm">
+          <h4 class="font-serif mb-4">Forma de Pago</h4>
+          
+          <div class="d-flex gap-2 mb-4">
+            <button class="btn btn-sm rounded-pill flex-grow-1 py-2" 
+                    [ngClass]="paymentMethod() === 'card' ? 'btn-dark' : 'btn-outline-dark'"
+                    (click)="paymentMethod.set('card')">
+              <i class="bi bi-credit-card me-1"></i> Tarjeta
+            </button>
+            <button class="btn btn-sm rounded-pill flex-grow-1 py-2" 
+                    [ngClass]="paymentMethod() === 'spei' ? 'btn-dark' : 'btn-outline-dark'"
+                    (click)="paymentMethod.set('spei')">
+              <i class="bi bi-bank me-1"></i> Transferencia SPEI
+            </button>
+            <button class="btn btn-sm rounded-pill flex-grow-1 py-2" 
+                    [ngClass]="paymentMethod() === 'oxxo' ? 'btn-dark' : 'btn-outline-dark'"
+                    (click)="paymentMethod.set('oxxo')">
+              <i class="bi bi-shop me-1"></i> OXXO Pay
+            </button>
+          </div>
+
+          @if (paymentMethod() === 'card') {
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label small fw-semibold">Número de Tarjeta</label>
+                <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
+                       placeholder="4000 1234 5678 9010" [ngModel]="cardNumber()" (ngModelChange)="cardNumber.set($event)">
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-semibold">Expiración (MM/AA)</label>
+                <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
+                       placeholder="12/28" [ngModel]="cardExpiry()" (ngModelChange)="cardExpiry.set($event)">
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-semibold">CVV</label>
+                <input type="password" class="form-control rounded-pill bg-white border-0 py-2" maxlength="4"
+                       placeholder="123" [ngModel]="cardCvv()" (ngModelChange)="cardCvv.set($event)">
+              </div>
+            </div>
+          } @else {
+            <div class="p-3 bg-white rounded-3 small text-muted">
+              Se generará una referencia numérica única para efectuar tu pago en las próximas 24 horas.
+            </div>
+          }
+
+          <div class="d-flex gap-3 mt-4">
+            <button class="btn btn-outline-dark rounded-pill py-3 px-4" (click)="step.set(1)">
+              Volver
+            </button>
+            <button class="btn btn-editorial flex-grow-1 rounded-pill py-3 text-uppercase small tracking-wide" 
+                    [disabled]="isProcessing()" (click)="nextStep()">
+              @if (isProcessing()) {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span> Procesando Orden...
+              } @else {
+                Confirmar y Pagar ${{ totalFinal().toFixed(2) }}
+              }
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- PASO 3: CONFIRMACIÓN DE COMPRA -->
+      @if (step() === 3) {
+        <div class="bg-sand-card p-5 rounded-4 text-center shadow-sm">
+          <div class="rounded-circle bg-success bg-opacity-10 text-success d-inline-flex p-3 mb-3">
+            <i class="bi bi-check2-circle display-4"></i>
+          </div>
+          <h2 class="font-serif">¡Gracias por tu compra!</h2>
+          <p class="text-muted">Tu pedido ha sido confirmado y está en preparación.</p>
+          
+          <div class="p-3 bg-white rounded-4 my-4 d-inline-block px-5 border">
+            <span class="text-muted small d-block">Número de Pedido</span>
+            <strong class="fs-4 text-dark font-serif">{{ orderNumber() }}</strong>
+          </div>
+
+          <div>
+            <a routerLink="/" class="btn btn-dark rounded-pill px-5 py-3 text-uppercase small tracking-wide">
+              Volver a la Tienda
+            </a>
+          </div>
+        </div>
+      }
+
+    </div>
+
+    <!-- Columna Derecha: Resumen de la Orden -->
+    <div class="col-lg-5">
+      <div class="bg-sand-sidebar p-4 p-md-5 rounded-4 shadow-sm position-sticky" style="top: 2rem;">
+        <h5 class="font-serif mb-4">Resumen del Pedido</h5>
+
+        <!-- Cupón en Checkout -->
+        @if (step() !== 3) {
+          <div class="mb-3">
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control bg-white border-0" placeholder="Código (PROFE100)" 
+                     [ngModel]="couponInput()" (ngModelChange)="couponInput.set($event)">
+              <button class="btn btn-dark px-3" type="button" (click)="applyCoupon()">Aplicar</button>
+            </div>
+            @if (couponMsg()) {
+              <small class="mt-1 d-block" [ngClass]="cartService.appliedCoupon() ? 'text-success' : 'text-danger'">
+                {{ couponMsg() }}
+              </small>
+            }
+          </div>
+        }
+
+        <div class="d-flex justify-content-between small text-muted mb-2">
+          <span>Subtotal</span>
+          <span>${{ cartService.getSubtotal().toFixed(2) }}</span>
+        </div>
+
+        @if (cartService.appliedCoupon()) {
+          <div class="d-flex justify-content-between small text-success mb-2">
+            <span>Descuento aplicado</span>
+            <span>-${{ cartService.getDiscount().toFixed(2) }}</span>
+          </div>
+        }
+
+        <div class="d-flex justify-content-between small text-muted mb-3">
+          <span>Envío</span>
+          <span>{{ shippingCost() === 0 ? 'Gratis' : '$' + shippingCost().toFixed(2) }}</span>
+        </div>
+
+        <div class="border-top border-dark border-opacity-10 pt-3 d-flex justify-content-between align-items-baseline">
+          <span class="fw-bold">Total a Pagar</span>
+          <span class="fs-4 fw-bold font-serif text-dark">${{ totalFinal().toFixed(2) }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
