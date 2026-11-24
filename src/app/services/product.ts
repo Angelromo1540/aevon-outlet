@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/shop.models';
-import { apiBaseUrl, exhibitionMode } from '../catalog-mode';
+import { apiBaseUrl, exhibitionMode, firebaseStoreEnabled } from '../catalog-mode';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class ProductService {
   private http = inject(HttpClient);
 
   readonly exhibitionMode = exhibitionMode;
+  readonly firebaseStoreEnabled = firebaseStoreEnabled;
   private readonly catalogUrl = apiBaseUrl === null
     ? 'catalogo-exhibicion.json'
     : `${apiBaseUrl}/products`;

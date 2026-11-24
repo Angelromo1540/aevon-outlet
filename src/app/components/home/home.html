@@ -94,7 +94,9 @@
         </h2>
 
         <p class="text-muted small mb-0">
-          @if (productService.exhibitionMode) {
+          @if (productService.firebaseStoreEnabled) {
+            Precios de referencia en MXN. Agrega tus prendas a la Bolsa y registra un pedido de prueba.
+          } @else if (productService.exhibitionMode) {
             Precios de referencia en MXN. Guarda prendas en tu bolsa. Las cuentas y los pedidos requieren conexión con el servidor de la tienda.
           } @else {
             Prendas con stock limitado y descuentos de liquidación.

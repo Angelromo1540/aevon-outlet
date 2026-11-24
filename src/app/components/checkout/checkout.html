@@ -1,11 +1,37 @@
 <div class="container my-5">
- @if (authService.serverConfigured && !authService.currentUser()) { <div class="alert alert-warning">Debes <a routerLink="/login">iniciar sesión o registrarte</a> para comprar.</div> }
+ @if (!authService.firebase && authService.serverConfigured && !authService.currentUser()) { <div class="alert alert-warning">Debes <a routerLink="/login">iniciar sesión o registrarte</a> para comprar.</div> }
  @if (error()) { <div class="alert alert-danger" role="alert">{{ error() }}</div> }
   <div class="row g-5">
     
     <!-- Columna Izquierda: Formulario Multistep -->
     <div class="col-lg-7">
-      @if (!authService.serverConfigured) {
+      @if (authService.firebase) {
+        <div class="bg-sand-card p-4 p-md-5 rounded-4 shadow-sm">
+          @if (orderNumber()) {
+            <h1 class="font-serif h3">Pedido de prueba registrado</h1>
+            <p class="text-break">Folio {{ orderNumber() }}</p>
+            <a routerLink="/login" class="btn btn-editorial rounded-pill">Ver mis pedidos</a>
+          } @else {
+            <h1 class="font-serif h3">Finalizar compra de prueba</h1>
+            <p class="text-muted">Registra la selección de tu bolsa sin cobro, envío ni reserva de inventario.</p>
+            @if (authService.checkingSession()) {
+              <p role="status">Cargando tu sesión…</p>
+            } @else if (!authService.currentUser()) {
+              <a routerLink="/login" class="btn btn-editorial rounded-pill">Iniciar sesión o crear una cuenta</a>
+            } @else if (!cartService.cart().length) {
+              <a routerLink="/" class="btn btn-outline-dark rounded-pill">Volver al catálogo</a>
+            } @else {
+              <label class="form-check-label d-block mb-3">
+                <input type="checkbox" class="form-check-input me-2" [ngModel]="terms()" (ngModelChange)="terms.set($event)">
+                Acepto registrar un pedido de prueba.
+              </label>
+              <button type="button" class="btn btn-editorial rounded-pill" [disabled]="!terms() || isProcessing()" (click)="placeFirebaseOrder()">
+                {{ isProcessing() ? 'Registrando…' : 'Confirmar pedido de prueba' }}
+              </button>
+            }
+          }
+        </div>
+      } @else if (!authService.serverConfigured) {
         <div class="bg-sand-card p-4 p-md-5 rounded-4 shadow-sm">
           <h1 class="font-serif h3">Finalizar compra</h1>
           <p class="text-muted" role="status">El servidor de pedidos no está conectado a este sitio. Tu bolsa se conserva en este navegador.</p>
@@ -149,9 +175,9 @@
     <!-- Columna Derecha: Resumen de la Orden -->
     <div class="col-lg-5">
       <div class="bg-sand-sidebar p-4 p-md-5 rounded-4 shadow-sm position-sticky" style="top: 2rem;">
-        <h5 class="font-serif mb-4">{{ authService.serverConfigured ? 'Resumen del Pedido' : 'Resumen de la Bolsa' }}</h5>
+        <h5 class="font-serif mb-4">{{ authService.firebase || !authService.serverConfigured ? 'Resumen de la Bolsa' : 'Resumen del Pedido' }}</h5>
 
-        @if (!authService.serverConfigured) {
+        @if ((authService.firebase || !authService.serverConfigured) && !orderNumber()) {
           <ul class="list-unstyled small mb-3">
             @for (item of cartService.cart(); track item.product.id + ':' + item.selectedSize) {
               <li class="d-flex justify-content-between gap-3 mb-2">
@@ -165,7 +191,7 @@
         }
 
         <!-- Cupón en Checkout -->
-        @if (authService.serverConfigured && step() !== 3) {
+        @if (!authService.firebase && authService.serverConfigured && step() !== 3) {
           <div class="mb-3">
             <div class="input-group input-group-sm">
               <input type="text" class="form-control bg-white border-0" placeholder="Código (PROFE100)" 
@@ -192,7 +218,7 @@
           </div>
         }
 
-        @if (authService.serverConfigured) {
+        @if (!authService.firebase && authService.serverConfigured) {
         <div class="d-flex justify-content-between small text-muted mb-3">
           <span>Envío</span>
           <span>{{ shippingCost() === 0 ? 'Gratis' : '$' + shippingCost().toFixed(2) }}</span>
@@ -200,7 +226,7 @@
         }
 
         <div class="border-top border-dark border-opacity-10 pt-3 d-flex justify-content-between align-items-baseline">
-          <span class="fw-bold">{{ authService.serverConfigured ? 'Total a Pagar' : 'Total de referencia' }}</span>
+          <span class="fw-bold">{{ authService.firebase || !authService.serverConfigured ? 'Total de referencia' : 'Total a Pagar' }}</span>
           <span class="fs-4 fw-bold font-serif text-dark">${{ totalFinal().toFixed(2) }}</span>
         </div>
       </div>

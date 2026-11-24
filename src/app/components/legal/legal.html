@@ -1,4 +1,15 @@
 <article class="container py-5" style="max-width:900px">
+@if (firebaseStoreEnabled) {
+  <h1 class="font-serif">Información legal y comercial</h1>
+  <p>AEVON Outlet · Proyecto académico</p>
+  <p class="alert alert-warning">Los pedidos son de prueba. Esta tienda no realiza cobros, envíos ni reservas de inventario.</p>
+  <h2 class="h4" id="terminos">Pedidos de prueba</h2>
+  <p>Selecciona prendas, tallas y cantidades, e inicia sesión para registrar tu pedido. Los precios en MXN son de referencia. Puedes consultar el folio y la fecha desde Mi Cuenta.</p>
+  <h2 class="h4" id="privacidad">Privacidad</h2>
+  <p>Firebase Authentication gestiona el correo, el nombre mostrado y la contraseña de tu cuenta. Firestore guarda el folio, la fecha y los artículos del pedido, que se consultan desde tu cuenta. La Bolsa se guarda en el navegador.</p>
+  <p>Usa una cuenta de prueba. La tienda no solicita domicilio ni datos bancarios.</p>
+  <a routerLink="/" class="btn btn-editorial">Volver a la tienda</a>
+} @else {
 <h1 class="font-serif">Información legal y comercial</h1><p>AEVON Outlet · Proyecto académico · Versión demo-1</p>
 <div class="alert alert-warning">Tienda ficticia para evaluación universitaria. No realiza ventas, cobros, facturación fiscal ni envíos reales. Utiliza exclusivamente datos ficticios.</div>
 <h2 class="h4">Identidad y contacto</h2><p>Proveedor simulado: AEVON Outlet, Nuevo Laredo, Tamaulipas, México. Contacto académico ficticio: soporte@aevon.example. Este correo no recibe mensajes. Para el ejercicio, las solicitudes se registran desde Mi Cuenta. No se presenta un RFC, domicilio fiscal ni teléfono real de un tercero.</p>
@@ -7,4 +18,6 @@
 <h2 class="h4" id="envio">Envío</h2><p>Envío estándar simulado: $120 MXN; gratuito desde $1,500 MXN de subtotal antes del descuento. Cobertura de prueba: México. Plazo ilustrativo: 3 a 5 días hábiles, sin despacho real. Los estados del pedido se consultan en Mi Cuenta. Los incidentes se pueden comunicar mediante una solicitud de devolución cuando el estado lo permita.</p>
 <h2 class="h4" id="devolucion">Cancelación, devolución, cambio y garantía</h2><p>La interfaz permite solicitar cancelación antes del envío, y devolución, cambio o garantía para pedidos enviados o entregados. La política comercial ilustrativa contempla solicitudes de devolución voluntaria durante 15 días naturales desde la recepción; no reduce derechos legales aplicables. El cliente selecciona el pedido completo, el motivo y una descripción. Se registra un folio y el administrador revisa y documenta la resolución. En la versión actual se simula el reembolso completo o el rechazo motivado; no se realizan cambios físicos, reparaciones ni reembolsos parciales. La recepción e inspección son simuladas, y el stock se reintegra cuando corresponda.</p><p>Los defectos, productos incorrectos, daños o faltantes se revisan por separado según el motivo. No existe una garantía comercial real porque no se venden productos. En una operación real se deberán establecer cobertura, duración, costos de retorno, plazos, canales y soluciones conformes a la legislación aplicable, sin restringir derechos irrenunciables del consumidor.</p>
 <h2 class="h4">Preguntas frecuentes y facturación</h2><p>¿Se cobra dinero? No. ¿Dónde consulto mi pedido? En Mi Cuenta. ¿Puedo introducir datos reales? No. ¿Se emiten facturas? No; cualquier comprobante es exclusivamente académico.</p>
-<p class="small">Avisos de demostración, pendientes de revisión jurídica y fiscal antes de publicar una tienda real.</p><a routerLink="/" class="btn btn-editorial">Volver a la tienda</a></article>
+<p class="small">Avisos de demostración, pendientes de revisión jurídica y fiscal antes de publicar una tienda real.</p><a routerLink="/" class="btn btn-editorial">Volver a la tienda</a>
+}
+</article>
