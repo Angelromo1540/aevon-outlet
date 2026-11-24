@@ -1,3 +1,4 @@
+import { exhibitionMode } from '../../catalog-mode';
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../services/modal.service';
@@ -11,12 +12,16 @@ import { CartService } from '../../services/cart';
   styleUrl: './quick-view-modal.css'
 })
 export class QuickViewModal {
+  readonly exhibitionMode = exhibitionMode;
   modalService = inject(ModalService);
   cartService = inject(CartService);
 
   selectedSize = signal<string>('');
   quantity = signal<number>(1);
   addedToast = signal<boolean>(false);
+  exhibitionSizes = computed(() =>
+    [...new Set(this.modalService.selectedProduct()?.variants.map(variant => variant.size))].join(', ')
+  );
 
   availableSizes = computed(() => (this.modalService.selectedProduct()?.variants ?? []).filter(v => v.stock > 0).map(v => v.size));
 

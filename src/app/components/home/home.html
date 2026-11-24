@@ -1,181 +1,389 @@
 <div class="container-fluid px-lg-5 px-3 my-4">
-  <!-- Hero Section Asimétrico Editorial -->
+
+  <!-- Hero Section -->
   <div class="row g-4 mb-5 align-items-stretch">
-    <!-- Columna Izquierda: Sidebar Editorial Mini -->
+
+    <!-- Columna izquierda -->
     <div class="col-lg-3 d-none d-lg-flex flex-column justify-content-between p-4 rounded-4 bg-sand-sidebar">
       <div>
-        <span class="text-uppercase small text-muted tracking-wide fw-bold">Archivo Exclusivo</span>
-        <h4 class="font-serif fw-normal mt-2">Esenciales con Carácter</h4>
-        <p class="small text-muted">Prendas con corte sastre y materiales nobles a precio de archivo.</p>
-        
+        <span class="text-uppercase small text-muted tracking-wide fw-bold">
+          Archivo Exclusivo
+        </span>
+
+        <h4 class="font-serif fw-normal mt-2">
+          Esenciales con Carácter
+        </h4>
+
+        <p class="small text-muted">
+          Prendas con corte sastre y materiales nobles a precio de archivo.
+        </p>
+
         <div class="rounded-3 overflow-hidden shadow-sm my-3">
-          <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" 
-               alt="Camisa Lino" class="img-fluid w-100" style="height: 220px; object-fit: cover;">
+          <img
+            src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80"
+            alt="Camisa Lino"
+            class="img-fluid w-100"
+            style="height: 220px; object-fit: cover;">
         </div>
       </div>
+
       <div class="border-top border-dark border-opacity-10 pt-3">
-        <p class="small font-serif fst-italic mb-0">"Calidad sartorial que trasciende temporadas."</p>
+        <p class="small font-serif fst-italic mb-0">
+          "Calidad sartorial que trasciende temporadas."
+        </p>
       </div>
     </div>
 
-    <!-- Columna Central: Foto Hero Principal -->
+    <!-- Columna central -->
     <div class="col-lg-5 col-md-6">
       <div class="rounded-4 overflow-hidden h-100 shadow-sm position-relative">
-        <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=1000&q=80" 
-             alt="Campaña Caballero" class="w-100 h-100" style="object-fit: cover; min-height: 480px;">
+
+        <img
+          src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=1000&q=80"
+          alt="Campaña Caballero"
+          class="w-100 h-100"
+          style="object-fit: cover; min-height: 480px;">
+
         <span class="position-absolute top-0 start-0 m-3 badge bg-dark text-light px-3 py-2 rounded-pill">
           Colección Sartorial
         </span>
+
       </div>
     </div>
 
-    <!-- Columna Derecha: Título Principal y Llamado a la Acción -->
+    <!-- Columna derecha -->
     <div class="col-lg-4 col-md-6 d-flex flex-column justify-content-center p-lg-4">
-      <span class="text-uppercase small text-muted tracking-wide fw-semibold">Temporada Outlet</span>
+
+      <span class="text-uppercase small text-muted tracking-wide fw-semibold">
+        Temporada Outlet
+      </span>
+
       <h1 class="font-serif display-4 fw-normal text-dark my-3">
-        Diseñado para vestir con <span class="fst-italic">presencia</span>
+        Diseñado para vestir con
+        <span class="fst-italic">presencia</span>
       </h1>
+
       <p class="text-muted mb-4">
-        Prendas seleccionadas con hasta un 50% de descuento. Cortes limpios, materiales premium y elegancia atemporal.
+        Prendas seleccionadas con hasta un 50% de descuento.
+        Cortes limpios, materiales premium y elegancia atemporal.
       </p>
+
       <div>
-        <a href="#catalogo" class="btn btn-editorial px-4 py-3 text-uppercase small tracking-wide">
-          Explorar Catálogo <i class="bi bi-arrow-right ms-2"></i>
+        <a
+          href="#catalogo"
+          class="btn btn-editorial px-4 py-3 text-uppercase small tracking-wide">
+          Explorar Catálogo
+          <i class="bi bi-arrow-right ms-2"></i>
         </a>
       </div>
+
     </div>
+
   </div>
 
-  <!-- Catálogo con Búsqueda y Filtros -->
-  <section id="catalogo" class="pt-5 border-top border-dark border-opacity-10">
+  <!-- Catálogo -->
+  <section
+    id="catalogo"
+    class="pt-5 border-top border-dark border-opacity-10">
+
     <div class="row g-4 mb-4 align-items-center">
+
       <div class="col-lg-6">
-        <h2 class="font-serif h3 mb-1">Catálogo de Archivo</h2>
-        <p class="text-muted small mb-0">Prendas con stock limitado y descuentos de liquidación.</p>
+        <h2 class="font-serif h3 mb-1">
+          Catálogo de Archivo
+        </h2>
+
+        <p class="text-muted small mb-0">
+          @if (productService.exhibitionMode) {
+            Catálogo de exhibición con precios de referencia en MXN. Las compras y el registro están deshabilitados.
+          } @else {
+            Prendas con stock limitado y descuentos de liquidación.
+          }
+        </p>
       </div>
 
-      <!-- Barra de Búsqueda Predictiva -->
+      <!-- Buscador -->
       <div class="col-lg-6">
         <div class="position-relative">
+
           <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-          <input type="text" class="form-control rounded-pill ps-5 bg-sand-card border-0 py-2" 
-                 placeholder="Buscar por prenda o categoría (ej. Blazer, Lino, Cuero)..."
-                 [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)">
+
+          <input
+            type="text"
+            class="form-control rounded-pill ps-5 bg-sand-card border-0 py-2"
+            placeholder="Buscar por prenda o categoría..."
+            [ngModel]="searchTerm()"
+            (ngModelChange)="searchTerm.set($event)">
+
         </div>
       </div>
+
     </div>
 
-    <!-- Barra de Filtros Combinados -->
+    <!-- Filtros -->
     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 bg-sand-card p-3 rounded-4 mb-5">
+
       <!-- Categorías -->
       <div class="d-flex flex-wrap gap-2 align-items-center">
-        <span class="small fw-semibold text-muted me-2">Categoría:</span>
+
+        <span class="small fw-semibold text-muted me-2">
+          Categoría:
+        </span>
+
         @for (cat of categories; track cat) {
-          <button class="btn btn-sm rounded-pill" 
-                  [ngClass]="selectedCategory() === cat ? 'btn-dark' : 'btn-outline-secondary'"
-                  (click)="selectedCategory.set(cat)">
+
+          <button
+            type="button"
+            class="btn btn-sm rounded-pill"
+            [ngClass]="selectedCategory() === cat
+              ? 'btn-dark'
+              : 'btn-outline-secondary'"
+            (click)="selectedCategory.set(cat)">
+
             {{ cat }}
+
           </button>
+
         }
+
       </div>
 
-      <!-- Filtro de Precio y Orden -->
+      <!-- Precio y ordenamiento -->
       <div class="d-flex align-items-center gap-3 ms-auto">
+
         <div class="d-flex align-items-center gap-2">
-          <label class="small text-muted fw-semibold text-nowrap">Precio máx: ${{ maxPrice() }}</label>
-          <input type="range" class="form-range" min="500" max="5000" step="100" 
-                 [ngModel]="maxPrice()" (ngModelChange)="maxPrice.set($event)" style="width: 120px;">
+
+          <label class="small text-muted fw-semibold text-nowrap">
+            Precio máx: ${{ maxPrice() }}
+          </label>
+
+          <input
+            type="range"
+            class="form-range"
+            min="500"
+            max="5000"
+            step="100"
+            [ngModel]="maxPrice()"
+            (ngModelChange)="maxPrice.set($event)"
+            style="width: 120px;">
+
         </div>
 
-        <select class="form-select form-select-sm rounded-pill border-0 bg-white" 
-                style="width: 160px;" 
-                [ngModel]="sortBy()" (ngModelChange)="sortBy.set($event)">
-          <option value="default">Relevancia</option>
-          <option value="price-asc">Precio: Menor a Mayor</option>
-          <option value="price-desc">Precio: Mayor a Menor</option>
+        <select
+          class="form-select form-select-sm rounded-pill border-0 bg-white"
+          style="width: 160px;"
+          [ngModel]="sortBy()"
+          (ngModelChange)="sortBy.set($event)">
+
+          <option value="default">
+            Relevancia
+          </option>
+
+          <option value="price-asc">
+            Precio: Menor a Mayor
+          </option>
+
+          <option value="price-desc">
+            Precio: Mayor a Menor
+          </option>
+
         </select>
+
       </div>
+
     </div>
 
-    <!-- Cuadrícula de Productos -->
-@if (productService.loading()) {
-  <div class="text-center py-4">
-    <div class="spinner-border text-warning" role="status">
-      <span class="visually-hidden">Cargando...</span>
-    </div>
+    <!-- Estado de carga -->
+    @if (productService.loading()) {
 
-    <p class="mt-3 text-muted">
-      Cargando catálogo de productos...
-    </p>
-  </div>
-}
+      <div class="text-center py-4" role="status">
 
-@if (productService.error(); as error) {
-  <div class="alert alert-danger text-center">
-    {{ error }}
+        <div
+          class="spinner-border text-warning"
+          aria-hidden="true">
+        </div>
 
-    <button
-      class="btn btn-outline-danger ms-2"
-      (click)="productService.loadProducts()">
-      Reintentar
-    </button>
-  </div>
-}
-              <!-- Badge de Descuento -->
+        <p class="mt-3 text-muted">
+          Cargando catálogo de productos...
+        </p>
+
+      </div>
+
+    }
+
+    <!-- Error de conexión -->
+    @if (productService.error(); as error) {
+
+      <div class="alert alert-danger text-center" role="alert">
+
+        {{ error }}
+
+        <button
+          type="button"
+          class="btn btn-outline-danger ms-2"
+          (click)="productService.loadProducts()">
+
+          Reintentar
+
+        </button>
+
+      </div>
+
+    }
+
+    <!-- Cuadrícula de productos -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mb-5">
+
+      @for (product of filteredProducts(); track product.id) {
+
+        <div class="col">
+
+          <div class="card h-100 border-0 bg-transparent">
+
+            <!-- Imagen del producto -->
+            <div class="position-relative rounded-4 overflow-hidden mb-3 bg-sand-card">
+
+              <!-- Descuento -->
               <span class="position-absolute top-0 start-0 m-3 badge badge-discount px-2 py-1 rounded-pill">
+
                 {{ product.discountBadge }}
+
               </span>
 
-              <!-- Botón Wishlist -->
-              <button class="position-absolute top-0 end-0 m-3 btn btn-light rounded-circle shadow-sm p-2 line-height-1 z-2"
-                      (click)="toggleWish(product.id)" [title]="isWishlisted(product.id) ? 'Remover de favoritos' : 'Guardar en favoritos'">
-                <i class="bi" [ngClass]="isWishlisted(product.id) ? 'bi-heart-fill text-danger' : 'bi-heart'"></i>
+              <!-- Favoritos -->
+              <button
+                type="button"
+                class="position-absolute top-0 end-0 m-3 btn btn-light rounded-circle shadow-sm p-2 line-height-1 z-2"
+                (click)="toggleWish(product.id)"
+                [title]="isWishlisted(product.id)
+                  ? 'Remover de favoritos'
+                  : 'Guardar en favoritos'">
+
+                <i
+                  class="bi"
+                  [ngClass]="isWishlisted(product.id)
+                    ? 'bi-heart-fill text-danger'
+                    : 'bi-heart'">
+                </i>
+
               </button>
 
-              <!-- Imagen con Apertura de Modal Flotante -->
-              <div role="button" (click)="openProductModal(product)" class="overflow-hidden" style="cursor: pointer;">
-                <img [src]="product.image" class="card-img-top w-100 transition-img" [alt]="product.name" style="height: 380px; object-fit: cover;">
+              <!-- Abrir producto -->
+              <div
+                role="button"
+                class="overflow-hidden"
+                style="cursor: pointer;"
+                (click)="openProductModal(product)">
+
+                <img
+                  [src]="product.image"
+                  [alt]="product.name"
+                  class="card-img-top w-100 transition-img"
+                  style="height: 380px; object-fit: cover;">
+
               </div>
+
             </div>
 
+            <!-- Información del producto -->
             <div class="card-body p-0">
+
               <div class="d-flex justify-content-between align-items-baseline mb-1">
-                <span class="text-muted small text-uppercase">{{ product.category }}</span>
-                <small [ngClass]="product.stock <= 3 ? 'text-danger fw-bold' : 'text-muted'">
-                  {{ product.stock <= 3 ? '¡Últimas ' + product.stock + ' pzs!' : 'Stock: ' + product.stock }}
+
+                <span class="text-muted small text-uppercase">
+                  {{ product.category }}
+                </span>
+
+                @if (!productService.exhibitionMode) {
+                <small
+                  [ngClass]="product.stock <= 3
+                    ? 'text-danger fw-bold'
+                    : 'text-muted'">
+
+                  {{ product.stock <= 3
+                    ? '¡Últimas ' + product.stock + ' pzs!'
+                    : 'Stock: ' + product.stock }}
+
                 </small>
+                }
+
               </div>
 
-              <!-- Título con Apertura de Modal Flotante -->
-              <h5 class="font-serif fw-normal mb-2 text-dark" role="button" (click)="openProductModal(product)" style="cursor: pointer;">
+              <!-- Nombre -->
+              <h5
+                class="font-serif fw-normal mb-2 text-dark"
+                role="button"
+                style="cursor: pointer;"
+                (click)="openProductModal(product)">
+
                 {{ product.name }}
+
               </h5>
 
+              <!-- Precios -->
               <div class="d-flex align-items-center justify-content-between mt-3">
+
                 <div>
-                  <span class="fs-5 fw-bold text-dark me-2">${{ product.price }}</span>
-                  <span class="text-decoration-line-through text-muted small">${{ product.originalPrice }}</span>
+
+                  <span class="fs-5 fw-bold text-dark me-2">
+                    ${{ product.price }}
+                  </span>
+
+                  <span class="text-decoration-line-through text-muted small">
+                    ${{ product.originalPrice }}
+                  </span>
+
                 </div>
-                
-                <button class="btn btn-sm btn-outline-dark rounded-pill px-3" (click)="openProductModal(product)">
-                  <i class="bi bi-eye me-1"></i> Ver Prenda
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-dark rounded-pill px-3"
+                  (click)="openProductModal(product)">
+
+                  <i class="bi bi-eye me-1"></i>
+                  Ver Prenda
+
                 </button>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       } @empty {
-        <div class="col-12 text-center py-5">
-          <i class="bi bi-search text-muted fs-1 mb-3 d-block"></i>
-          <h4 class="font-serif text-muted">No se encontraron prendas con estos filtros</h4>
-          <button class="btn btn-dark rounded-pill mt-3 px-4" (click)="searchTerm.set(''); selectedCategory.set('Todas'); maxPrice.set(5000)">
-            Restablecer Filtros
-          </button>
-        </div>
+
         @if (!productService.loading() && !productService.error()) {
-  <!-- Aquí permanece tu mensaje original de filtros -->
-}
+
+          <div class="col-12 text-center py-5">
+
+            <i class="bi bi-search text-muted fs-1 mb-3 d-block"></i>
+
+            <h4 class="font-serif text-muted">
+              No se encontraron prendas con estos filtros
+            </h4>
+
+            <button
+              type="button"
+              class="btn btn-dark rounded-pill mt-3 px-4"
+              (click)="searchTerm.set('');
+                       selectedCategory.set('Todas');
+                       maxPrice.set(5000)">
+
+              Restablecer Filtros
+
+            </button>
+
+          </div>
+
+        }
+
       }
+
     </div>
+
   </section>
+
 </div>

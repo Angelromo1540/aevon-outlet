@@ -25,7 +25,8 @@
         <span class="text-uppercase small text-muted tracking-wide fw-bold">{{ prod.category }}</span>
         <h1 class="font-serif display-5 fw-normal text-dark my-2">{{ prod.name }}</h1>
 
-        <!-- Valoración y Stock -->
+        @if (!exhibitionMode) {
+<!-- Valoración y Stock -->
         <div class="d-flex align-items-center gap-3 mb-3">
           <div class="text-warning small">
             <i class="bi bi-star-fill"></i>
@@ -38,7 +39,8 @@
           </span>
         </div>
 
-        <!-- Precios -->
+
+}<!-- Precios -->
         <div class="d-flex align-items-baseline gap-3 my-4">
           <span class="display-6 fw-bold text-dark">${{ prod.price }}</span>
           <span class="fs-4 text-decoration-line-through text-muted">${{ prod.originalPrice }}</span>
@@ -47,7 +49,8 @@
 
         <p class="text-secondary leading-relaxed mb-4">{{ prod.description }}</p>
 
-        <!-- Selector de Tallas -->
+        @if (!exhibitionMode) {
+<!-- Selector de Tallas -->
         <div class="mb-4">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <label class="small fw-bold text-dark">Selecciona tu Talla:</label>
@@ -85,7 +88,8 @@
           </div>
         }
 
-        <!-- Tabla de Ficha Técnica -->
+
+}<!-- Tabla de Ficha Técnica -->
         <div class="border-top border-dark border-opacity-10 pt-4">
           <h5 class="font-serif mb-3">Especificaciones de Confección</h5>
           <table class="table table-sm table-borderless text-secondary small">

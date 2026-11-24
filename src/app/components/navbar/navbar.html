@@ -10,7 +10,9 @@
     <nav class="d-none d-md-flex gap-4">
       <a routerLink="/" class="text-decoration-none text-dark fw-medium small">Inicio</a>
       <a href="#catalogo" class="text-decoration-none text-muted small">Catálogo</a>
-      <a routerLink="/login" class="text-decoration-none text-muted small">Mi Cuenta</a>
+      @if (!exhibitionMode) {
+<a routerLink="/login" class="text-decoration-none text-muted small">Mi Cuenta</a>
+}
     </nav>
 
     <!-- Contadores Dinámicos y Modo Oscuro -->
@@ -32,12 +34,14 @@
         }
       </button>
 
-      <!-- Bolsa -->
+      @if (!exhibitionMode) {
+<!-- Bolsa -->
       <button class="btn btn-editorial d-flex align-items-center gap-2 py-2 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
         <i class="bi bi-bag"></i>
         <span class="d-none d-sm-inline">Bolsa</span>
         <span class="badge bg-dark rounded-pill">{{ cartService.getTotalItems() }}</span>
       </button>
+}
     </div>
   </div>
 </header>
@@ -61,9 +65,11 @@
                     <h6 class="font-serif small mb-1 text-dark">{{ product.name }}</h6>
                     <span class="fw-bold small text-dark d-block mb-2">${{ product.price }}</span>
                     <div class="d-flex gap-2">
-                      <button class="btn btn-sm btn-dark rounded-pill px-3" (click)="moveToBag(product)">
+                      @if (!exhibitionMode) {
+<button class="btn btn-sm btn-dark rounded-pill px-3" (click)="moveToBag(product)">
                         <i class="bi bi-bag-plus me-1"></i> A la Bolsa
                       </button>
+}
                       <button class="btn btn-sm btn-outline-danger rounded-circle p-1" (click)="cartService.toggleWishlist(product.id)" title="Eliminar">
                         <i class="bi bi-trash"></i>
                       </button>

@@ -1,0 +1,821 @@
+[
+    {
+        "id":  1,
+        "sku":  "AEV-001",
+        "name":  "Blazer de Lana Sartorial Oxford",
+        "category":  "Blazers",
+        "price":  1890,
+        "originalPrice":  3200,
+        "rating":  4.8,
+        "description":  "Confeccionado en mezcla de lana italiana con solapa de muesca y forro interior de viscosa.",
+        "image":  "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "40% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "70% Lana, 30% Poliéster",
+                      "Corte":  "Slim Fit",
+                      "Origen":  "Portugal"
+                  },
+        "variants":  [
+                         {
+                             "id":  1,
+                             "sku":  "AEV-001-01",
+                             "size":  "CH (36)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  2,
+                             "sku":  "AEV-001-02",
+                             "size":  "M (38)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  3,
+                             "sku":  "AEV-001-03",
+                             "size":  "G (40)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  4,
+                             "sku":  "AEV-001-04",
+                             "size":  "XG (42)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  2,
+        "sku":  "AEV-002",
+        "name":  "Saco Cruzado Doble Botonadura Camel",
+        "category":  "Blazers",
+        "price":  2150,
+        "originalPrice":  3800,
+        "rating":  4.9,
+        "description":  "Estructura clásica con solapa en pico, botones en tono cuerno y bolsillos de ojal.",
+        "image":  "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "43% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "80% Lana Virgen, 20% Cachemira",
+                      "Corte":  "Tailored Fit",
+                      "Color":  "Camel Tostado"
+                  },
+        "variants":  [
+                         {
+                             "id":  5,
+                             "sku":  "AEV-002-01",
+                             "size":  "CH (36)",
+                             "color":  "Camel Tostado",
+                             "stock":  0
+                         },
+                         {
+                             "id":  6,
+                             "sku":  "AEV-002-02",
+                             "size":  "M (38)",
+                             "color":  "Camel Tostado",
+                             "stock":  0
+                         },
+                         {
+                             "id":  7,
+                             "sku":  "AEV-002-03",
+                             "size":  "G (40)",
+                             "color":  "Camel Tostado",
+                             "stock":  0
+                         },
+                         {
+                             "id":  8,
+                             "sku":  "AEV-002-04",
+                             "size":  "XG (42)",
+                             "color":  "Camel Tostado",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  3,
+        "sku":  "AEV-003",
+        "name":  "Blazer Casual Desestructurado Marino",
+        "category":  "Blazers",
+        "price":  1420,
+        "originalPrice":  2400,
+        "rating":  4.6,
+        "description":  "Sin hombreras rígidas para una caída natural y movimiento cómodo.",
+        "image":  "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "40% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "100% Algodón Peinado",
+                      "Corte":  "Modern Casual",
+                      "Cuidado":  "Tintorería"
+                  },
+        "variants":  [
+                         {
+                             "id":  9,
+                             "sku":  "AEV-003-01",
+                             "size":  "CH (36)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  10,
+                             "sku":  "AEV-003-02",
+                             "size":  "M (38)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  11,
+                             "sku":  "AEV-003-03",
+                             "size":  "G (40)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  12,
+                             "sku":  "AEV-003-04",
+                             "size":  "XG (42)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  4,
+        "sku":  "AEV-004",
+        "name":  "Chamarra Biker Cuero Genuino",
+        "category":  "Abrigos",
+        "price":  2450,
+        "originalPrice":  4900,
+        "rating":  4.9,
+        "description":  "Piel genuina de grano entero con forro satinado y cierres metálicos YKK.",
+        "image":  "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "50% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "100% Piel Vacuna",
+                      "Forro":  "Poliéster Satinado",
+                      "Color":  "Negro Mate"
+                  },
+        "variants":  [
+                         {
+                             "id":  13,
+                             "sku":  "AEV-004-01",
+                             "size":  "CH (36)",
+                             "color":  "Negro Mate",
+                             "stock":  0
+                         },
+                         {
+                             "id":  14,
+                             "sku":  "AEV-004-02",
+                             "size":  "M (38)",
+                             "color":  "Negro Mate",
+                             "stock":  0
+                         },
+                         {
+                             "id":  15,
+                             "sku":  "AEV-004-03",
+                             "size":  "G (40)",
+                             "color":  "Negro Mate",
+                             "stock":  0
+                         },
+                         {
+                             "id":  16,
+                             "sku":  "AEV-004-04",
+                             "size":  "XG (42)",
+                             "color":  "Negro Mate",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  5,
+        "sku":  "AEV-005",
+        "name":  "Abrigo Largo Overcoat Carbón",
+        "category":  "Abrigos",
+        "price":  2890,
+        "originalPrice":  5200,
+        "rating":  4.8,
+        "description":  "Abrigo tres cuartos de alta densidad térmica, ideal para clima frío y eventos formales.",
+        "image":  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "44% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "90% Lana Melton, 10% Poliamida",
+                      "Largo":  "Bajo la rodilla",
+                      "Bolsillos":  "Interiores térmicos"
+                  },
+        "variants":  [
+                         {
+                             "id":  17,
+                             "sku":  "AEV-005-01",
+                             "size":  "CH (36)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  18,
+                             "sku":  "AEV-005-02",
+                             "size":  "M (38)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  19,
+                             "sku":  "AEV-005-03",
+                             "size":  "G (40)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  20,
+                             "sku":  "AEV-005-04",
+                             "size":  "XG (42)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  6,
+        "sku":  "AEV-006",
+        "name":  "Chamarra Cazadora Bomber Gamuza",
+        "category":  "Abrigos",
+        "price":  1980,
+        "originalPrice":  3400,
+        "rating":  4.7,
+        "description":  "Acabado en gamuza suave con cuello y puños acanalados elásticos.",
+        "image":  "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "41% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "Piel Nobuk Sintética Premium",
+                      "Cierre":  "Cremallera frontal doble",
+                      "Color":  "Oliva Seco"
+                  },
+        "variants":  [
+                         {
+                             "id":  21,
+                             "sku":  "AEV-006-01",
+                             "size":  "CH (36)",
+                             "color":  "Oliva Seco",
+                             "stock":  0
+                         },
+                         {
+                             "id":  22,
+                             "sku":  "AEV-006-02",
+                             "size":  "M (38)",
+                             "color":  "Oliva Seco",
+                             "stock":  0
+                         },
+                         {
+                             "id":  23,
+                             "sku":  "AEV-006-03",
+                             "size":  "G (40)",
+                             "color":  "Oliva Seco",
+                             "stock":  0
+                         },
+                         {
+                             "id":  24,
+                             "sku":  "AEV-006-04",
+                             "size":  "XG (42)",
+                             "color":  "Oliva Seco",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  7,
+        "sku":  "AEV-007",
+        "name":  "Camisa Guayabera Lino Puro",
+        "category":  "Camisas",
+        "price":  780,
+        "originalPrice":  1300,
+        "rating":  4.6,
+        "description":  "Lino fresco y transpirable con botones de madera natural y cuello tipo resort.",
+        "image":  "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "40% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "100% Lino Orgánico",
+                      "Corte":  "Regular Fit",
+                      "Cuidado":  "Lavado en frío"
+                  },
+        "variants":  [
+                         {
+                             "id":  25,
+                             "sku":  "AEV-007-01",
+                             "size":  "CH (36)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  26,
+                             "sku":  "AEV-007-02",
+                             "size":  "M (38)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  27,
+                             "sku":  "AEV-007-03",
+                             "size":  "G (40)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  28,
+                             "sku":  "AEV-007-04",
+                             "size":  "XG (42)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  8,
+        "sku":  "AEV-008",
+        "name":  "Suéter de Cuello Alto Cachemira",
+        "category":  "Camisas",
+        "price":  1120,
+        "originalPrice":  1950,
+        "rating":  4.8,
+        "description":  "Punto fino ultrasuave de cuello tortuga, ideal para vestir bajo sacos y sobretodos.",
+        "image":  "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "42% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "50% Cachemira, 50% Algodón Pima",
+                      "Grosor":  "Punto fino (12 Gauge)",
+                      "Color":  "Crudo Arena"
+                  },
+        "variants":  [
+                         {
+                             "id":  29,
+                             "sku":  "AEV-008-01",
+                             "size":  "CH (36)",
+                             "color":  "Crudo Arena",
+                             "stock":  0
+                         },
+                         {
+                             "id":  30,
+                             "sku":  "AEV-008-02",
+                             "size":  "M (38)",
+                             "color":  "Crudo Arena",
+                             "stock":  0
+                         },
+                         {
+                             "id":  31,
+                             "sku":  "AEV-008-03",
+                             "size":  "G (40)",
+                             "color":  "Crudo Arena",
+                             "stock":  0
+                         },
+                         {
+                             "id":  32,
+                             "sku":  "AEV-008-04",
+                             "size":  "XG (42)",
+                             "color":  "Crudo Arena",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  9,
+        "sku":  "AEV-009",
+        "name":  "Camisa Denim Lavado Japonés",
+        "category":  "Camisas",
+        "price":  890,
+        "originalPrice":  1450,
+        "rating":  4.5,
+        "description":  "Tejido vaquero resistente con costuras reforzadas en tono ocre y botones nacarados.",
+        "image":  "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "38% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "100% Algodón Selvedge",
+                      "Gramaje":  "7 oz",
+                      "Corte":  "Slim Fit"
+                  },
+        "variants":  [
+                         {
+                             "id":  33,
+                             "sku":  "AEV-009-01",
+                             "size":  "CH (36)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  34,
+                             "sku":  "AEV-009-02",
+                             "size":  "M (38)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  35,
+                             "sku":  "AEV-009-03",
+                             "size":  "G (40)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  36,
+                             "sku":  "AEV-009-04",
+                             "size":  "XG (42)",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  10,
+        "sku":  "AEV-010",
+        "name":  "Pantalón Chino Tapered Fit",
+        "category":  "Pantalones",
+        "price":  620,
+        "originalPrice":  990,
+        "rating":  4.5,
+        "description":  "Algodón elástico de alta densidad para máxima comodidad y versatilidad diaria.",
+        "image":  "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "37% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "98% Algodón, 2% Elastano",
+                      "Tiro":  "Medio",
+                      "Color":  "Beige Arena"
+                  },
+        "variants":  [
+                         {
+                             "id":  37,
+                             "sku":  "AEV-010-01",
+                             "size":  "28",
+                             "color":  "Beige Arena",
+                             "stock":  0
+                         },
+                         {
+                             "id":  38,
+                             "sku":  "AEV-010-02",
+                             "size":  "30",
+                             "color":  "Beige Arena",
+                             "stock":  0
+                         },
+                         {
+                             "id":  39,
+                             "sku":  "AEV-010-03",
+                             "size":  "32",
+                             "color":  "Beige Arena",
+                             "stock":  0
+                         },
+                         {
+                             "id":  40,
+                             "sku":  "AEV-010-04",
+                             "size":  "34",
+                             "color":  "Beige Arena",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  11,
+        "sku":  "AEV-011",
+        "name":  "Pantalón de Vestir Plisado Gris",
+        "category":  "Pantalones",
+        "price":  940,
+        "originalPrice":  1600,
+        "rating":  4.7,
+        "description":  "Doble pinza frontal con ajustadores laterales de hebilla metálica (side adjusters).",
+        "image":  "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "41% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "60% Lana, 40% Viscosa",
+                      "Corte":  "Relaxed Tapered",
+                      "Tiro":  "Alto"
+                  },
+        "variants":  [
+                         {
+                             "id":  41,
+                             "sku":  "AEV-011-01",
+                             "size":  "28",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  42,
+                             "sku":  "AEV-011-02",
+                             "size":  "30",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  43,
+                             "sku":  "AEV-011-03",
+                             "size":  "32",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  44,
+                             "sku":  "AEV-011-04",
+                             "size":  "34",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  12,
+        "sku":  "AEV-012",
+        "name":  "Pantalón Cargo Sartorial Espresso",
+        "category":  "Pantalones",
+        "price":  850,
+        "originalPrice":  1390,
+        "rating":  4.6,
+        "description":  "Bolsillos laterales planos con fuelles discretos para un acabado limpio.",
+        "image":  "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "38% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "100% Algodón Ripstop",
+                      "Color":  "Café Espresso",
+                      "Ajuste":  "Cintura elástica trasera"
+                  },
+        "variants":  [
+                         {
+                             "id":  45,
+                             "sku":  "AEV-012-01",
+                             "size":  "28",
+                             "color":  "Café Espresso",
+                             "stock":  0
+                         },
+                         {
+                             "id":  46,
+                             "sku":  "AEV-012-02",
+                             "size":  "30",
+                             "color":  "Café Espresso",
+                             "stock":  0
+                         },
+                         {
+                             "id":  47,
+                             "sku":  "AEV-012-03",
+                             "size":  "32",
+                             "color":  "Café Espresso",
+                             "stock":  0
+                         },
+                         {
+                             "id":  48,
+                             "sku":  "AEV-012-04",
+                             "size":  "34",
+                             "color":  "Café Espresso",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  13,
+        "sku":  "AEV-013",
+        "name":  "Botines Chelsea Gamuza Tabaco",
+        "category":  "Calzado",
+        "price":  1650,
+        "originalPrice":  2750,
+        "rating":  4.7,
+        "description":  "Construcción Goodyear welted con elásticos laterales y suela antideslizante.",
+        "image":  "https://images.unsplash.com/photo-1638247025967-b4e38f787b76?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "40% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Corte":  "Piel Nobuk / Gamuza",
+                      "Suela":  "Goma vulcanizada",
+                      "Tallas":  "26 - 29 MX"
+                  },
+        "variants":  [
+                         {
+                             "id":  49,
+                             "sku":  "AEV-013-01",
+                             "size":  "26 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  50,
+                             "sku":  "AEV-013-02",
+                             "size":  "27 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  51,
+                             "sku":  "AEV-013-03",
+                             "size":  "28 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  52,
+                             "sku":  "AEV-013-04",
+                             "size":  "29 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  14,
+        "sku":  "AEV-014",
+        "name":  "Mocasines Penny Loafers Cuero Burdeos",
+        "category":  "Calzado",
+        "price":  1790,
+        "originalPrice":  3100,
+        "rating":  4.9,
+        "description":  "Piel con brillo pulido a mano, costuras decorativas y plantilla acolchada ergonómica.",
+        "image":  "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "42% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "Piel Flor de Ternera",
+                      "Suela":  "Cuero curtido vegetal",
+                      "Color":  "Burdeos Oxblood"
+                  },
+        "variants":  [
+                         {
+                             "id":  53,
+                             "sku":  "AEV-014-01",
+                             "size":  "26 MX",
+                             "color":  "Burdeos Oxblood",
+                             "stock":  0
+                         },
+                         {
+                             "id":  54,
+                             "sku":  "AEV-014-02",
+                             "size":  "27 MX",
+                             "color":  "Burdeos Oxblood",
+                             "stock":  0
+                         },
+                         {
+                             "id":  55,
+                             "sku":  "AEV-014-03",
+                             "size":  "28 MX",
+                             "color":  "Burdeos Oxblood",
+                             "stock":  0
+                         },
+                         {
+                             "id":  56,
+                             "sku":  "AEV-014-04",
+                             "size":  "29 MX",
+                             "color":  "Burdeos Oxblood",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  15,
+        "sku":  "AEV-015",
+        "name":  "Sneakers Minimalistas Piel Blanca",
+        "category":  "Calzado",
+        "price":  1250,
+        "originalPrice":  2100,
+        "rating":  4.6,
+        "description":  "Tenis de perfil bajo sin logotipos visibles, diseñados para combinar con trajes o jeans.",
+        "image":  "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "40% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Corte":  "100% Piel Nappa",
+                      "Forro":  "Cuero microperforado",
+                      "Suela":  "Caucho cosido Margom"
+                  },
+        "variants":  [
+                         {
+                             "id":  57,
+                             "sku":  "AEV-015-01",
+                             "size":  "26 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  58,
+                             "sku":  "AEV-015-02",
+                             "size":  "27 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  59,
+                             "sku":  "AEV-015-03",
+                             "size":  "28 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         },
+                         {
+                             "id":  60,
+                             "sku":  "AEV-015-04",
+                             "size":  "29 MX",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  16,
+        "sku":  "AEV-016",
+        "name":  "Reloj Cronógrafo Cuarzo Acero",
+        "category":  "Accesorios",
+        "price":  1299,
+        "originalPrice":  2199,
+        "rating":  4.9,
+        "description":  "Caja de 42mm en acero inoxidable quirúrgico con correa de cuero italiano intercambiable.",
+        "image":  "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "40% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Resistencia":  "5 ATM",
+                      "Cristal":  "Mineral endurecido",
+                      "Movimiento":  "Cuarzo Japonés"
+                  },
+        "variants":  [
+                         {
+                             "id":  61,
+                             "sku":  "AEV-016-01",
+                             "size":  "Única",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  17,
+        "sku":  "AEV-017",
+        "name":  "Maletín Weekender Cuero Vintage",
+        "category":  "Accesorios",
+        "price":  2100,
+        "originalPrice":  3600,
+        "rating":  4.8,
+        "description":  "Bolso de viaje con compartimento acolchado para laptop y correa de hombro ajustable.",
+        "image":  "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "41% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Material":  "Piel Crazy Horse encerada",
+                      "Capacidad":  "35 Litros",
+                      "Herrajes":  "Latón envejecido"
+                  },
+        "variants":  [
+                         {
+                             "id":  62,
+                             "sku":  "AEV-017-01",
+                             "size":  "Única",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    },
+    {
+        "id":  18,
+        "sku":  "AEV-018",
+        "name":  "Gafas de Sol Acetato Carey Polarizadas",
+        "category":  "Accesorios",
+        "price":  690,
+        "originalPrice":  1200,
+        "rating":  4.7,
+        "description":  "Montura de acetato pulido a mano con bisagras de 5 dientes y micas verdes UV400.",
+        "image":  "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format\u0026fit=crop\u0026w=800\u0026q=80",
+        "ratingIsDemo":  true,
+        "discountBadge":  "42% OFF",
+        "stock":  0,
+        "specs":  {
+                      "Protección":  "100% UV400 / Polarizadas",
+                      "Material":  "Acetato de celulosa",
+                      "Acabado":  "Havana Carey"
+                  },
+        "variants":  [
+                         {
+                             "id":  63,
+                             "sku":  "AEV-018-01",
+                             "size":  "Única",
+                             "color":  "Sin especificar",
+                             "stock":  0
+                         }
+                     ]
+    }
+]

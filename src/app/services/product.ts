@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/shop.models';
+import { exhibitionMode } from '../catalog-mode';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,10 @@ export class ProductService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://127.0.0.1:3000/api/products';
+  readonly exhibitionMode = exhibitionMode;
+  private readonly catalogUrl = exhibitionMode
+    ? 'catalogo-exhibicion.json'
+    : 'http://127.0.0.1:3000/api/products';
 
   private products = signal<Product[]>([]);
 
@@ -27,20 +31,25 @@ export class ProductService {
     this.loading.set(true);
     this.error.set(null);
 
-    this.http.get<Product[]>(this.apiUrl).subscribe({
+    this.http.get<Product[]>(this.catalogUrl).subscribe({
 
       next: (data) => {
-        this.products.set(data);
+        if (Array.isArray(data)) {
+          this.products.set(data);
+        } else {
+          this.error.set('El servidor devolvió un catálogo con formato inválido.');
+        }
         this.loading.set(false);
 
-        console.log('Productos cargados desde SQL Server:', data.length);
       },
 
       error: (err) => {
         console.error('Error al cargar productos:', err);
 
         this.error.set(
-          'No se pudo establecer conexión con el servidor.'
+          exhibitionMode
+            ? 'No se pudo cargar el catálogo de exhibición.'
+            : 'No se pudo cargar el catálogo desde el servidor local.'
         );
 
         this.loading.set(false);

@@ -1,3 +1,4 @@
+import { exhibitionMode } from '../../catalog-mode';
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -12,6 +13,7 @@ import { CartService } from '../../services/cart';
   styleUrl: './product-detail.css'
 })
 export class ProductDetail implements OnInit {
+  readonly exhibitionMode = exhibitionMode;
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   cartService = inject(CartService);

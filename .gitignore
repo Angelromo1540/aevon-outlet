@@ -42,3 +42,21 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Local credentials, generated hosting metadata and private backups
+node_modules/
+.firebase/
+.env
+.env.*
+!.env.example
+*.bak
+*.bacpac
+*.mdf
+*.ldf
+*.zip
+*.7z
+*.pem
+*.key
+*.pfx
+*service-account*.json
+*firebase-adminsdk*.json

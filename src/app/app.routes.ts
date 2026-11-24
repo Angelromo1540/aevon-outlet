@@ -6,13 +6,16 @@ import { Auth } from './components/auth/auth';
 
 import { Admin } from './components/admin/admin';
 import { Legal } from './components/legal/legal';
+import { exhibitionMode } from './catalog-mode';
 
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'producto/:id', component: ProductDetail },
-  { path: 'checkout', component: Checkout },
-  { path: 'login', component: Auth },
-  { path: 'admin', component: Admin },
+  ...(!exhibitionMode ? [
+    { path: 'checkout', component: Checkout },
+    { path: 'login', component: Auth },
+    { path: 'admin', component: Admin },
+  ] : []),
   { path: 'legal', component: Legal },
   { path: '**', redirectTo: '' }
 ];

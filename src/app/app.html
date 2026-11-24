@@ -5,7 +5,9 @@
 </main>
 
 <!-- Componentes globales flotantes -->
+@if (!exhibitionMode) {
 <app-cart-drawer></app-cart-drawer>
+}
 <app-quick-view-modal></app-quick-view-modal>
 <app-toast-container></app-toast-container>
 
@@ -30,11 +32,13 @@
 
   <div class="floating-divider"></div>
 
-  <!-- Botón Bolsa de Compras -->
+  @if (!exhibitionMode) {
+<!-- Botón Bolsa de Compras -->
   <button class="btn-floating-pill btn-editorial py-1 px-3" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" title="Abrir Bolsa">
     <i class="bi bi-bag"></i>
     <span>{{ cartService.getTotalItems() }}</span>
   </button>
+}
 </div>
 
 <!-- Modal Flotante de Información / Legal / Contacto -->

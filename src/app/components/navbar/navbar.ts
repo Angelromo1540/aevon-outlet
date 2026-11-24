@@ -1,3 +1,4 @@
+import { exhibitionMode } from '../../catalog-mode';
 import { Component, inject, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart';
@@ -13,6 +14,7 @@ import { Product } from '../../models/shop.models';
   styleUrl: './navbar.css'
 })
 export class Navbar {
+  readonly exhibitionMode = exhibitionMode;
   cartService = inject(CartService);
   productService = inject(ProductService);
   themeService = inject(ThemeService);
