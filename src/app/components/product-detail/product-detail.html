@@ -54,10 +54,10 @@
             <a href="#" class="small text-muted text-decoration-none"><i class="bi bi-rulers me-1"></i>Guía de medidas</a>
           </div>
           <div class="d-flex gap-2">
-            @for (size of availableSizes; track size) {
+            @for (size of availableSizes(); track size) {
               <button class="btn btn-sm rounded-pill px-3 py-2"
                       [ngClass]="selectedSize() === size ? 'btn-dark' : 'btn-outline-dark'"
-                      (click)="selectedSize.set(size)">
+                      (click)="selectedSize.set(size); quantity.set(1)">
                 {{ size }}
               </button>
             }

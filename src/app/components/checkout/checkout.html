@@ -1,4 +1,6 @@
 <div class="container my-5">
+ @if (!authService.currentUser()) { <div class="alert alert-warning">Debes <a routerLink="/login">iniciar sesión o registrarte</a> para comprar.</div> }
+ @if (error()) { <div class="alert alert-danger" role="alert">{{ error() }}</div> }
   <div class="row g-5">
     
     <!-- Columna Izquierda: Formulario Multistep -->
@@ -33,10 +35,12 @@
                      placeholder="Nombre y apellidos" [ngModel]="fullName()" (ngModelChange)="fullName.set($event)">
             </div>
             <div class="col-12">
-              <label class="form-label small fw-semibold">Calle y Número</label>
+              <label class="form-label small fw-semibold">Calle</label>
               <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
-                     placeholder="Av. Paseo de la Reforma #123" [ngModel]="address()" (ngModelChange)="address.set($event)">
+                     placeholder="Av. Paseo de la Reforma" [ngModel]="address()" (ngModelChange)="address.set($event)">
             </div>
+            <div class="col-md-6"><label for="num" class="form-label">Número exterior</label><input id="num" class="form-control" [ngModel]="number()" (ngModelChange)="number.set($event)"></div>
+            <div class="col-md-6"><label for="col" class="form-label">Colonia</label><input id="col" class="form-control" [ngModel]="colony()" (ngModelChange)="colony.set($event)"></div>
             <div class="col-md-4">
               <label class="form-label small fw-semibold">Código Postal</label>
               <input type="text" class="form-control rounded-pill bg-white border-0 py-2" maxlength="5"
@@ -92,32 +96,10 @@
             </button>
           </div>
 
-          @if (paymentMethod() === 'card') {
-            <div class="row g-3">
-              <div class="col-12">
-                <label class="form-label small fw-semibold">Número de Tarjeta</label>
-                <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
-                       placeholder="4000 1234 5678 9010" [ngModel]="cardNumber()" (ngModelChange)="cardNumber.set($event)">
-              </div>
-              <div class="col-6">
-                <label class="form-label small fw-semibold">Expiración (MM/AA)</label>
-                <input type="text" class="form-control rounded-pill bg-white border-0 py-2" 
-                       placeholder="12/28" [ngModel]="cardExpiry()" (ngModelChange)="cardExpiry.set($event)">
-              </div>
-              <div class="col-6">
-                <label class="form-label small fw-semibold">CVV</label>
-                <input type="password" class="form-control rounded-pill bg-white border-0 py-2" maxlength="4"
-                       placeholder="123" [ngModel]="cardCvv()" (ngModelChange)="cardCvv.set($event)">
-              </div>
-            </div>
-          } @else {
-            <div class="p-3 bg-white rounded-3 small text-muted">
-              Se generará una referencia numérica única para efectuar tu pago en las próximas 24 horas.
-            </div>
-          }
-
+          <div class="alert alert-info">Pago exclusivamente simulado. No se recabarán datos bancarios ni se realizará ningún cobro. Envío estándar estimado de 3 a 5 días hábiles; precios en MXN. Proyecto académico sin entregas reales.</div>
+          <p class="small"><a routerLink="/legal" target="_blank" rel="noopener">Consultar términos, privacidad, envíos y devoluciones</a></p><label class="form-check-label"><input type="checkbox" class="form-check-input me-2" [ngModel]="terms()" (ngModelChange)="terms.set($event)"> Acepto los términos de compra simulada (versión demo-1).</label>
           <div class="d-flex gap-3 mt-4">
-            <button class="btn btn-outline-dark rounded-pill py-3 px-4" (click)="step.set(1)">
+            <button class="btn btn-outline-dark rounded-pill py-3 px-4" [disabled]="isProcessing()" (click)="step.set(1)">
               Volver
             </button>
             <button class="btn btn-editorial flex-grow-1 rounded-pill py-3 text-uppercase small tracking-wide" 
@@ -139,9 +121,9 @@
             <i class="bi bi-check2-circle display-4"></i>
           </div>
           <h2 class="font-serif">¡Gracias por tu compra!</h2>
-          <p class="text-muted">Tu pedido ha sido confirmado y está en preparación.</p>
+          <p class="text-muted">Tu pedido de prueba fue registrado y el pago simulado fue aprobado.</p>
           
-          <div class="p-3 bg-white rounded-4 my-4 d-inline-block px-5 border">
+          <div class="p-3 bg-white rounded-4 my-4 d-inline-block px-3 border" style="overflow-wrap:anywhere;max-width:100%">
             <span class="text-muted small d-block">Número de Pedido</span>
             <strong class="fs-4 text-dark font-serif">{{ orderNumber() }}</strong>
           </div>
@@ -179,13 +161,13 @@
 
         <div class="d-flex justify-content-between small text-muted mb-2">
           <span>Subtotal</span>
-          <span>${{ cartService.getSubtotal().toFixed(2) }}</span>
+          <span>${{ (receipt()?.subtotal ?? cartService.getSubtotal()).toFixed(2) }}</span>
         </div>
 
-        @if (cartService.appliedCoupon()) {
+        @if ((receipt()?.discount ?? cartService.getDiscount()) > 0) {
           <div class="d-flex justify-content-between small text-success mb-2">
             <span>Descuento aplicado</span>
-            <span>-${{ cartService.getDiscount().toFixed(2) }}</span>
+            <span>-${{ (receipt()?.discount ?? cartService.getDiscount()).toFixed(2) }}</span>
           </div>
         }
 

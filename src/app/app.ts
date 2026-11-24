@@ -1,5 +1,5 @@
 import { Component, inject, signal, HostListener } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Navbar } from './components/navbar/navbar';
 import { CartDrawer } from './components/cart-drawer/cart-drawer';
@@ -15,7 +15,7 @@ export type InfoModalType = 'shipping' | 'terms' | 'contact' | null;
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, Navbar, CartDrawer, QuickViewModal, ToastContainer],
+  imports: [CommonModule, RouterOutlet, RouterLink, Navbar, CartDrawer, QuickViewModal, ToastContainer],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

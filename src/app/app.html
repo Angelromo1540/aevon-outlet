@@ -115,24 +115,12 @@
     <h5 class="font-serif tracking-wide mb-2">AEVON | Men's Archive Outlet</h5>
     <p class="text-secondary small mb-3">Prendas con diseño sartorial atemporal y precios de archivo.</p>
     
-    <div class="d-flex justify-content-center gap-4 small text-secondary mb-3">
-      <button class="btn btn-link text-secondary p-0 text-decoration-none small" (click)="openInfo('shipping')">
-        Políticas de Envío
-      </button>
-      <button class="btn btn-link text-secondary p-0 text-decoration-none small" (click)="openInfo('terms')">
-        Términos y Condiciones
-      </button>
-      <button class="btn btn-link text-secondary p-0 text-decoration-none small" (click)="openInfo('contact')">
-        Contacto
-      </button>
+    <p class="small text-light">Proyecto académico · Sin ventas ni cobros reales</p>
+    <div class="d-flex justify-content-center flex-wrap gap-3 small mb-3">
+      <a routerLink="/legal" class="text-light">Términos y condiciones</a>
+      <a routerLink="/legal" class="text-light">Aviso de privacidad</a>
+      <a routerLink="/legal" class="text-light">Envío, devoluciones y contacto</a>
     </div>
-    
-    <div>
-      <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" style="font-size: 0.75rem;" (click)="resetApplicationData()">
-        <i class="bi bi-arrow-counterclockwise me-1"></i> Restablecer Datos de Demostración
-      </button>
-    </div>
-
     <small class="text-muted d-block mt-4">© 2026 AEVON Outlet. Todos los derechos reservados.</small>
   </div>
 </footer>

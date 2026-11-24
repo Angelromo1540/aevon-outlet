@@ -1,44 +1,17 @@
-import { Injectable, signal } from '@angular/core';
-import { User } from '../models/shop.models';
-
-@Injectable({
-  providedIn: 'root'
-})
+import { Injectable, inject, signal } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+export interface SessionUser { id: number; name: string; email: string; role: string; }
+@Injectable({providedIn:'root'})
 export class AuthService {
-  currentUser = signal<User | null>(this.loadUser());
-
-  private loadUser(): User | null {
-    const saved = localStorage.getItem('auth_user');
-    return saved ? JSON.parse(saved) : null;
-  }
-
-  login(email: string, pass: string): boolean {
-    const users: User[] = JSON.parse(localStorage.getItem('registered_users') || '[]');
-    const user = users.find(u => u.email === email && u.password === pass);
-
-    if (user) {
-      this.currentUser.set({ name: user.name, email: user.email });
-      localStorage.setItem('auth_user', JSON.stringify({ name: user.name, email: user.email }));
-      return true;
-    }
-    return false;
-  }
-
-  register(name: string, email: string, pass: string): boolean {
-    let users: User[] = JSON.parse(localStorage.getItem('registered_users') || '[]');
-    if (users.some(u => u.email === email)) {
-      return false;
-    }
-    const newUser = { name, email, password: pass };
-    users.push(newUser);
-    localStorage.setItem('registered_users', JSON.stringify(users));
-    this.currentUser.set({ name, email });
-    localStorage.setItem('auth_user', JSON.stringify({ name, email }));
-    return true;
-  }
-
-  logout() {
-    this.currentUser.set(null);
-    localStorage.removeItem('auth_user');
-  }
+  private http=inject(HttpClient);
+  readonly api='http://127.0.0.1:3000/api';
+  private token='';
+  currentUser=signal<SessionUser|null>(null);
+  constructor(){ localStorage.removeItem('registered_users'); localStorage.removeItem('auth_user'); }
+  headers(){ return new HttpHeaders({Authorization:'Bearer '+this.token}); }
+  async login(email:string,password:string){ await this.authenticate('login',{email,password}); }
+  async register(name:string,email:string,password:string){ await this.authenticate('register',{name,email,password}); }
+  private async authenticate(path:string,body:object){ const r=await firstValueFrom(this.http.post<{token:string,user:SessionUser}>(`${this.api}/auth/${path}`,body)); this.token=r.token; this.currentUser.set(r.user); }
+  logout(){ const headers=this.headers(); this.token=''; this.currentUser.set(null); this.http.post(`${this.api}/auth/logout`,{},{headers}).subscribe({error:()=>{}}); }
 }

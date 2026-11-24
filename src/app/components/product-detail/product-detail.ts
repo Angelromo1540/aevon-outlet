@@ -1,9 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product';
 import { CartService } from '../../services/cart';
-import { Product } from '../../models/shop.models';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,17 +16,18 @@ export class ProductDetail implements OnInit {
   private productService = inject(ProductService);
   cartService = inject(CartService);
 
-  product = signal<Product | undefined>(undefined);
-  selectedSize = signal<string>('M');
+  private productId = signal(0);
+  product = computed(() => this.productService.getProductById(this.productId()));
+  selectedSize = signal<string>('');
   quantity = signal<number>(1);
   addedToast = signal<boolean>(false);
 
-  availableSizes = ['CH (36)', 'M (38)', 'G (40)', 'XG (42)'];
+  availableSizes = computed(() => (this.product()?.variants ?? []).filter(v => v.stock > 0).map(v => v.size));
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
-      this.product.set(this.productService.getProductById(id));
+      this.productId.set(id); this.selectedSize.set(''); this.quantity.set(1);
     });
   }
 
@@ -46,7 +46,9 @@ export class ProductDetail implements OnInit {
     const prod = this.product();
     if (!prod) return;
 
-    this.cartService.addToCart(prod, this.quantity(), this.selectedSize());
+    const size = this.selectedSize();
+    if (!size || !this.availableSizes().includes(size)) { alert('Selecciona una talla disponible.'); return; }
+    this.cartService.addToCart(prod, this.quantity(), size);
     this.addedToast.set(true);
     setTimeout(() => this.addedToast.set(false), 3000);
   }

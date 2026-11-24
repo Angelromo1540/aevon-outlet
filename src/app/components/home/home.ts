@@ -23,7 +23,7 @@ export class Home {
   maxPrice = signal(5000);
   sortBy = signal<'default' | 'price-asc' | 'price-desc'>('default');
 
-  categories = ['Todas', 'Blazers', 'Abrigos', 'Camisas', 'Calzado', 'Pantalones', 'Accesorios'];
+  get categories(): string[] { return ['Todas', ...new Set(this.productService.getProducts()().map(p => p.category))]; }
 
   filteredProducts = computed(() => {
     let list = this.productService.getProducts()();

@@ -10,11 +10,42 @@
         <div class="d-inline-flex p-3 rounded-circle bg-dark text-light mb-3 shadow">
           <i class="bi bi-person-check fs-2"></i>
         </div>
-        <span class="text-uppercase small text-muted tracking-wide fw-bold d-block">Perfil de Cliente</span>
+        <span class="text-uppercase small text-muted tracking-wide fw-bold d-block">{{ user.role }}</span>
         <h3 class="font-serif text-dark mt-1">{{ user.name }}</h3>
         <p class="text-muted small mb-4">{{ user.email }}</p>
+        @if (user.role === 'Administrador') { <a routerLink="/admin" class="btn btn-dark w-100 mb-3">Panel administrativo</a> }
 
-        <div class="d-flex flex-column gap-2">
+        <div class="text-start mb-3"><h5>{{ user.role === 'Administrador' ? 'Administración de pedidos' : 'Mis pedidos' }}</h5>
+          @if (errorMessage()) { <p class="text-danger">{{ errorMessage() }}</p> }
+          @for (o of orders(); track o.id) { <div class="border rounded p-2 mb-2 small" style="overflow-wrap:anywhere"><strong>{{ o.folio }}</strong><div>{{ o.cliente || '' }} · {{ o.estado }} · {{ o.total | currency:'MXN' }}</div>
+          @if (user.role === 'Administrador' && next(o)) { <button class="btn btn-sm btn-dark" [disabled]="busy()" (click)="advance(o)">Cambiar a {{ next(o) }}</button> } @if (user.role === 'Cliente' && canRequest(o)) { <button class="btn btn-sm btn-outline-dark mt-2" (click)="openRequest(o)">Solicitar cancelación/devolución</button> }</div> } @empty { <p>No hay pedidos registrados.</p> }
+          <button class="btn btn-sm btn-outline-dark" (click)="loadOrders()">Actualizar pedidos</button></div>
+          <div class="text-start border-top pt-3 mb-3 small">
+            @if (requestOrder(); as selected) {
+              <h6>Solicitud de pedido completo</h6>
+              <p class="text-break">{{ selected.folio }}</p>
+              <label class="form-label" for="return-type">Tipo de solicitud</label>
+              <select id="return-type" class="form-select mb-2" [ngModel]="returnType()" (ngModelChange)="returnType.set($event)">
+                @if (selected.estado === 'PAGADO' || selected.estado === 'PREPARANDO') { <option value="CANCELACION">Cancelación</option> }
+                @else { <option value="DEVOLUCION">Devolución</option><option value="GARANTIA">Garantía</option><option value="CAMBIO">Cambio</option> }
+              </select>
+              <label class="form-label" for="return-reason">Motivo</label><select id="return-reason" class="form-select mb-2" [ngModel]="returnReason()" (ngModelChange)="returnReason.set($event)"><option value="OTRO">Otro</option><option value="ARREPENTIMIENTO">Cambio de decisión</option><option value="TALLA">Talla</option><option value="DEFECTO">Defecto</option><option value="DANADO_TRANSITO">Daño en tránsito</option><option value="INCORRECTO">Producto incorrecto</option><option value="INCOMPLETO">Incompleto</option><option value="NO_RECIBIDO">No recibido</option></select>
+              <label for="return-desc" class="form-label">Descripción</label><textarea id="return-desc" class="form-control mb-2" maxlength="1000" [ngModel]="returnDescription()" (ngModelChange)="returnDescription.set($event)"></textarea>
+              <button class="btn btn-dark btn-sm me-2" [disabled]="busy() || !returnDescription().trim()" (click)="sendRequest()">Enviar solicitud</button><button class="btn btn-outline-dark btn-sm" (click)="requestOrder.set(null)">Cerrar</button>
+            }
+            <h5 class="mt-3">{{user.role === 'Administrador' ? 'Administración de solicitudes' : 'Mis solicitudes'}}</h5>
+            @for(r of returns(); track r.id){<div class="border rounded p-2 mb-2 text-break"><strong>{{r.folio}}</strong><div>{{r.tipo}} · {{r.estado}}</div><div>Pedido: {{r.pedido}}</div><p class="mb-1">{{r.motivo}}: {{r.descripcion}}</p>@if(r.comentario){<p>{{r.comentario}}</p>}
+              @if(user.role === 'Administrador' && (r.estado === 'SOLICITADA' || r.estado === 'EN_REVISION')){
+                @if(resolutionId() === r.id){<label class="form-label" [attr.for]="'resolution-'+r.id">Motivo de resolución</label><textarea [id]="'resolution-'+r.id" class="form-control mb-2" maxlength="1000" [ngModel]="resolutionComment()" (ngModelChange)="resolutionComment.set($event)"></textarea>
+                @if(r.tipo !== 'CANCELACION'){<label class="d-block"><input type="checkbox" [ngModel]="received()" (ngModelChange)="received.set($event)"> Recepción e inspección simuladas completadas</label><label class="d-block"><input type="checkbox" [ngModel]="restock()" (ngModelChange)="restock.set($event)"> Mercancía apta para reingreso al inventario</label>}
+                <button class="btn btn-sm btn-dark mt-2 me-1" [disabled]="busy() || !resolutionComment().trim() || (r.tipo !== 'CANCELACION' && !received())" (click)="resolve(r,'REFUND')">{{r.tipo === 'CANCELACION' ? 'Cancelar y reembolsar' : 'Reembolso simulado completo'}}</button><button class="btn btn-sm btn-outline-danger mt-2" [disabled]="busy() || !resolutionComment().trim()" (click)="resolve(r,'REJECT')">Rechazar</button>
+                } @else {<button class="btn btn-sm btn-outline-dark me-1" [disabled]="busy()" (click)="resolve(r,'REVIEW')">En revisión</button><button class="btn btn-sm btn-dark" (click)="openResolution(r)">Resolver</button>}
+              }
+            </div>} @empty {<p>No hay solicitudes registradas.</p>}
+            <button class="btn btn-sm btn-outline-dark" (click)="loadReturns()">Actualizar solicitudes</button>
+            <p class="text-muted mt-2">Demostración académica: solicitudes de pedido completo y reembolsos simulados. Otros casos requieren atención individual.</p>
+          </div>
+          <div class="d-flex flex-column gap-2">
           <a routerLink="/" class="btn btn-editorial py-2 shadow-sm">Explorar Catálogo</a>
           <button class="btn btn-outline-danger rounded-pill py-2" (click)="authService.logout()">
             <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
@@ -36,6 +67,7 @@
         </div>
       }
 
+      <p class="small">Utiliza datos ficticios. <a routerLink="/legal" target="_blank" rel="noopener">Aviso de privacidad</a>.</p>
       <form (ngSubmit)="onSubmit()">
         @if (!isLoginMode()) {
           <div class="mb-3">
@@ -57,7 +89,7 @@
                  placeholder="••••••••" [ngModel]="password()" (ngModelChange)="password.set($event)" name="password">
         </div>
 
-        <button type="submit" class="btn btn-editorial w-100 py-3 text-uppercase small tracking-wide shadow">
+        <button type="submit" [disabled]="busy()" class="btn btn-editorial w-100 py-3 text-uppercase small tracking-wide shadow">
           {{ isLoginMode() ? 'Entrar a Mi Cuenta' : 'Registrarme' }}
         </button>
       </form>

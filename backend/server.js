@@ -1,0 +1,16 @@
+require('dotenv').config();
+const express=require('express');
+const cors=require('cors');
+const helmet=require('helmet');
+const {conectarBD}=require('./config/database');
+const app=express();
+app.use(helmet());
+app.use(cors({origin:process.env.FRONTEND_URL}));
+app.use(express.json({limit:'100kb'}));
+app.get('/',(req,res)=>res.json({proyecto:'AEVON Outlet',version:'1.0.0',mensaje:'API REST funcionando correctamente'}));
+app.get('/api/health',async(req,res)=>{try{const pool=await conectarBD();const r=await pool.request().query(`SELECT DB_NAME() AS BaseDeDatos,(SELECT COUNT(*) FROM dbo.Productos) AS Productos,(SELECT COUNT(*) FROM dbo.Categorias) AS Categorias,(SELECT SUM(Existencias) FROM dbo.Variantes) AS Unidades`);res.json({estado:'OK',servidor:'Activo',conexionSQL:'Correcta',datos:r.recordset[0]});}catch(e){console.error(e.message);res.status(503).json({estado:'ERROR',mensaje:'Base de datos no disponible'});}});
+app.use('/api',require('./routes/catalogo.routes'));
+app.use('/api',require('./routes/compras.routes'));
+app.use((req,res)=>res.status(404).json({mensaje:'Ruta no encontrada'}));
+app.use((err,req,res,next)=>{console.error(err.message);res.status(err.status===400?400:500).json({mensaje:'Solicitud no válida o error interno'});});
+(async()=>{try{await conectarBD();const host=process.env.HOST||'127.0.0.1',port=Number(process.env.PORT||3000);app.listen(port,host,()=>console.log(`AEVON Outlet API: http://${host}:${port}`));}catch(e){console.error(e.message);process.exit(1);}})();

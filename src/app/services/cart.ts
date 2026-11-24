@@ -26,19 +26,22 @@ export class CartService {
   }
 
   addToCart(product: Product, quantity = 1, size?: string) {
+    if (!size) { this.toastService.show('Selecciona la talla desde el catálogo', 'info'); return; }
+    const variant = product.variants?.find(v => v.size === size);
+    if (!variant || variant.stock < quantity || quantity < 1) { this.toastService.show('Talla agotada o cantidad no disponible', 'danger'); return; }
     const current = [...this.cart()];
     const index = current.findIndex(i => i.product.id === product.id && i.selectedSize === size);
 
     if (index > -1) {
       const newQty = current[index].quantity + quantity;
-      if (newQty <= product.stock) {
+      if (newQty <= variant.stock) {
         current[index].quantity = newQty;
         this.toastService.show(`Cantidad actualizada: ${product.name}`, 'info');
       } else {
         this.toastService.show(`Stock límite alcanzado para esta prenda`, 'danger');
       }
     } else {
-      if (quantity <= product.stock) {
+      if (quantity <= variant.stock) {
         current.push({ product, quantity, selectedSize: size });
         this.toastService.show(`Agregado a la bolsa: ${product.name}`, 'success');
       }
@@ -54,7 +57,7 @@ export class CartService {
 
     if (quantity <= 0) {
       this.removeFromCart(productId, size);
-    } else if (quantity <= item.product.stock) {
+    } else if (quantity <= (item.product.variants?.find(v => v.size === size)?.stock ?? 0)) {
       item.quantity = quantity;
       this.cart.set(current);
       this.saveCart();
@@ -84,8 +87,7 @@ export class CartService {
   }
 
   moveToCart(product: Product) {
-    this.addToCart(product, 1);
-    this.toggleWishlist(product.id);
+    this.toastService.show('Abre el producto en el catálogo y selecciona una talla.', 'info');
   }
 
   applyCoupon(code: string): boolean {

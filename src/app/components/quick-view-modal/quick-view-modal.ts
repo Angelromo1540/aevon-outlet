@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../services/modal.service';
 import { CartService } from '../../services/cart';
@@ -14,11 +14,11 @@ export class QuickViewModal {
   modalService = inject(ModalService);
   cartService = inject(CartService);
 
-  selectedSize = signal<string>('M');
+  selectedSize = signal<string>('');
   quantity = signal<number>(1);
   addedToast = signal<boolean>(false);
 
-  availableSizes = ['CH (36)', 'M (38)', 'G (40)', 'XG (42)'];
+  availableSizes = computed(() => (this.modalService.selectedProduct()?.variants ?? []).filter(v => v.stock > 0).map(v => v.size));
 
   changeQty(amount: number) {
     const prod = this.modalService.selectedProduct();
@@ -33,7 +33,9 @@ export class QuickViewModal {
     const prod = this.modalService.selectedProduct();
     if (!prod) return;
 
-    this.cartService.addToCart(prod, this.quantity(), this.selectedSize());
+    const size = this.selectedSize();
+    if (!size || !this.availableSizes().includes(size)) { alert('Selecciona una talla disponible.'); return; }
+    this.cartService.addToCart(prod, this.quantity(), size);
     this.addedToast.set(true);
     setTimeout(() => {
       this.addedToast.set(false);
