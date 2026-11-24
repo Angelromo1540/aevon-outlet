@@ -24,7 +24,7 @@ export class ProductDetail implements OnInit {
   quantity = signal<number>(1);
   addedToast = signal<boolean>(false);
 
-  availableSizes = computed(() => (this.product()?.variants ?? []).filter(v => v.stock > 0).map(v => v.size));
+  availableSizes = computed(() => this.cartService.availableSizes(this.product()));
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -39,7 +39,7 @@ export class ProductDetail implements OnInit {
     if (!prod) return;
 
     const next = current + amount;
-    if (next >= 1 && next <= prod.stock) {
+    if (Number.isSafeInteger(next) && next >= 1 && (exhibitionMode || next <= prod.stock)) {
       this.quantity.set(next);
     }
   }
@@ -48,9 +48,7 @@ export class ProductDetail implements OnInit {
     const prod = this.product();
     if (!prod) return;
 
-    const size = this.selectedSize();
-    if (!size || !this.availableSizes().includes(size)) { alert('Selecciona una talla disponible.'); return; }
-    this.cartService.addToCart(prod, this.quantity(), size);
+    if (!this.cartService.addToCart(prod, this.quantity(), this.selectedSize())) return;
     this.addedToast.set(true);
     setTimeout(() => this.addedToast.set(false), 3000);
   }

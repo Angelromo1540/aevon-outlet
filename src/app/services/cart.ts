@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { CartItem, Product } from '../models/shop.models';
 import { ToastService } from './toast';
+import { exhibitionMode } from '../catalog-mode';
 
 @Injectable({
   providedIn: 'root'
@@ -25,39 +26,49 @@ export class CartService {
     localStorage.setItem('wishlist_items', JSON.stringify(this.wishlist()));
   }
 
-  addToCart(product: Product, quantity = 1, size?: string) {
-    if (!size) { this.toastService.show('Selecciona la talla desde el catálogo', 'info'); return; }
-    const variant = product.variants?.find(v => v.size === size);
-    if (!variant || variant.stock < quantity || quantity < 1) { this.toastService.show('Talla agotada o cantidad no disponible', 'danger'); return; }
-    const current = [...this.cart()];
-    const index = current.findIndex(i => i.product.id === product.id && i.selectedSize === size);
+  availableSizes(product?: Product): string[] {
+    const variants = product?.variants ?? [];
+    return [...new Set(variants.filter(variant => exhibitionMode || variant.stock > 0).map(variant => variant.size))];
+  }
 
-    if (index > -1) {
-      const newQty = current[index].quantity + quantity;
-      if (newQty <= variant.stock) {
-        current[index].quantity = newQty;
-        this.toastService.show(`Cantidad actualizada: ${product.name}`, 'info');
-      } else {
-        this.toastService.show(`Stock límite alcanzado para esta prenda`, 'danger');
-      }
+  private canSetQuantity(product: Product, size: string | undefined, quantity: number): boolean {
+    const variant = product.variants?.find(candidate => candidate.size === size);
+    return !!variant && Number.isSafeInteger(quantity) && quantity > 0
+      && (exhibitionMode || quantity <= variant.stock);
+  }
+
+  addToCart(product: Product, quantity = 1, size?: string): boolean {
+    if (!size) {
+      this.toastService.show('Selecciona la talla desde el catálogo', 'info');
+      return false;
+    }
+    const current = [...this.cart()];
+    const index = current.findIndex(item => item.product.id === product.id && item.selectedSize === size);
+    const totalQuantity = (current[index]?.quantity ?? 0) + quantity;
+    if (!Number.isSafeInteger(quantity) || quantity < 1 || !this.canSetQuantity(product, size, totalQuantity)) {
+      this.toastService.show('Talla o cantidad no disponible', 'danger');
+      return false;
+    }
+    if (index >= 0) {
+      current[index] = { product, quantity: totalQuantity, selectedSize: size };
+      this.toastService.show(`Cantidad actualizada: ${product.name}`, 'info');
     } else {
-      if (quantity <= variant.stock) {
-        current.push({ product, quantity, selectedSize: size });
-        this.toastService.show(`Agregado a la bolsa: ${product.name}`, 'success');
-      }
+      current.push({ product, quantity, selectedSize: size });
+      this.toastService.show(`Agregado a la bolsa: ${product.name}`, 'success');
     }
     this.cart.set(current);
     this.saveCart();
+    return true;
   }
 
   updateQuantity(productId: number, quantity: number, size?: string) {
-    let current = [...this.cart()];
+    const current = [...this.cart()];
     const item = current.find(i => i.product.id === productId && i.selectedSize === size);
     if (!item) return;
 
     if (quantity <= 0) {
       this.removeFromCart(productId, size);
-    } else if (quantity <= (item.product.variants?.find(v => v.size === size)?.stock ?? 0)) {
+    } else if (this.canSetQuantity(item.product, size, quantity)) {
       item.quantity = quantity;
       this.cart.set(current);
       this.saveCart();

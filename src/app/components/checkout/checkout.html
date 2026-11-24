@@ -1,10 +1,17 @@
 <div class="container my-5">
- @if (!authService.currentUser()) { <div class="alert alert-warning">Debes <a routerLink="/login">iniciar sesión o registrarte</a> para comprar.</div> }
+ @if (authService.serverConfigured && !authService.currentUser()) { <div class="alert alert-warning">Debes <a routerLink="/login">iniciar sesión o registrarte</a> para comprar.</div> }
  @if (error()) { <div class="alert alert-danger" role="alert">{{ error() }}</div> }
   <div class="row g-5">
     
     <!-- Columna Izquierda: Formulario Multistep -->
     <div class="col-lg-7">
+      @if (!authService.serverConfigured) {
+        <div class="bg-sand-card p-4 p-md-5 rounded-4 shadow-sm">
+          <h1 class="font-serif h3">Finalizar compra</h1>
+          <p class="text-muted" role="status">El servidor de pedidos no está conectado a este sitio. Tu bolsa se conserva en este navegador.</p>
+          <a routerLink="/" class="btn btn-outline-dark rounded-pill">Seguir explorando</a>
+        </div>
+      } @else {
       
       <!-- Stepper / Indicador de Pasos -->
       <div class="d-flex justify-content-between align-items-center mb-5 border-bottom border-dark border-opacity-10 pb-3">
@@ -136,15 +143,29 @@
         </div>
       }
 
+      }
     </div>
 
     <!-- Columna Derecha: Resumen de la Orden -->
     <div class="col-lg-5">
       <div class="bg-sand-sidebar p-4 p-md-5 rounded-4 shadow-sm position-sticky" style="top: 2rem;">
-        <h5 class="font-serif mb-4">Resumen del Pedido</h5>
+        <h5 class="font-serif mb-4">{{ authService.serverConfigured ? 'Resumen del Pedido' : 'Resumen de la Bolsa' }}</h5>
+
+        @if (!authService.serverConfigured) {
+          <ul class="list-unstyled small mb-3">
+            @for (item of cartService.cart(); track item.product.id + ':' + item.selectedSize) {
+              <li class="d-flex justify-content-between gap-3 mb-2">
+                <span>{{ item.quantity }} × {{ item.product.name }} ({{ item.selectedSize }})</span>
+                <span>${{ (item.product.price * item.quantity).toFixed(2) }}</span>
+              </li>
+            } @empty {
+              <li>Tu bolsa está vacía.</li>
+            }
+          </ul>
+        }
 
         <!-- Cupón en Checkout -->
-        @if (step() !== 3) {
+        @if (authService.serverConfigured && step() !== 3) {
           <div class="mb-3">
             <div class="input-group input-group-sm">
               <input type="text" class="form-control bg-white border-0" placeholder="Código (PROFE100)" 
@@ -171,13 +192,15 @@
           </div>
         }
 
+        @if (authService.serverConfigured) {
         <div class="d-flex justify-content-between small text-muted mb-3">
           <span>Envío</span>
           <span>{{ shippingCost() === 0 ? 'Gratis' : '$' + shippingCost().toFixed(2) }}</span>
         </div>
+        }
 
         <div class="border-top border-dark border-opacity-10 pt-3 d-flex justify-content-between align-items-baseline">
-          <span class="fw-bold">Total a Pagar</span>
+          <span class="fw-bold">{{ authService.serverConfigured ? 'Total a Pagar' : 'Total de referencia' }}</span>
           <span class="fs-4 fw-bold font-serif text-dark">${{ totalFinal().toFixed(2) }}</span>
         </div>
       </div>

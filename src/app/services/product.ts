@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/shop.models';
-import { exhibitionMode } from '../catalog-mode';
+import { apiBaseUrl, exhibitionMode } from '../catalog-mode';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,9 @@ export class ProductService {
   private http = inject(HttpClient);
 
   readonly exhibitionMode = exhibitionMode;
-  private readonly catalogUrl = exhibitionMode
+  private readonly catalogUrl = apiBaseUrl === null
     ? 'catalogo-exhibicion.json'
-    : 'http://127.0.0.1:3000/api/products';
+    : `${apiBaseUrl}/products`;
 
   private products = signal<Product[]>([]);
 
@@ -49,7 +49,7 @@ export class ProductService {
         this.error.set(
           exhibitionMode
             ? 'No se pudo cargar el catálogo de exhibición.'
-            : 'No se pudo cargar el catálogo desde el servidor local.'
+            : 'No se pudo cargar el catálogo desde el servidor.'
         );
 
         this.loading.set(false);

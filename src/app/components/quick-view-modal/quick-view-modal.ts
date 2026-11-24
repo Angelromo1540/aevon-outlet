@@ -1,5 +1,5 @@
 import { exhibitionMode } from '../../catalog-mode';
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, linkedSignal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../services/modal.service';
 import { CartService } from '../../services/cart';
@@ -12,24 +12,18 @@ import { CartService } from '../../services/cart';
   styleUrl: './quick-view-modal.css'
 })
 export class QuickViewModal {
-  readonly exhibitionMode = exhibitionMode;
   modalService = inject(ModalService);
   cartService = inject(CartService);
 
-  selectedSize = signal<string>('');
-  quantity = signal<number>(1);
-  addedToast = signal<boolean>(false);
-  exhibitionSizes = computed(() =>
-    [...new Set(this.modalService.selectedProduct()?.variants.map(variant => variant.size))].join(', ')
-  );
-
-  availableSizes = computed(() => (this.modalService.selectedProduct()?.variants ?? []).filter(v => v.stock > 0).map(v => v.size));
+  selectedSize = linkedSignal({ source: this.modalService.selectedProduct, computation: () => '' });
+  quantity = linkedSignal({ source: this.modalService.selectedProduct, computation: () => 1 });
+  availableSizes = computed(() => this.cartService.availableSizes(this.modalService.selectedProduct() ?? undefined));
 
   changeQty(amount: number) {
     const prod = this.modalService.selectedProduct();
     if (!prod) return;
     const next = this.quantity() + amount;
-    if (next >= 1 && next <= prod.stock) {
+    if (Number.isSafeInteger(next) && next >= 1 && (exhibitionMode || next <= prod.stock)) {
       this.quantity.set(next);
     }
   }
@@ -38,14 +32,9 @@ export class QuickViewModal {
     const prod = this.modalService.selectedProduct();
     if (!prod) return;
 
-    const size = this.selectedSize();
-    if (!size || !this.availableSizes().includes(size)) { alert('Selecciona una talla disponible.'); return; }
-    this.cartService.addToCart(prod, this.quantity(), size);
-    this.addedToast.set(true);
-    setTimeout(() => {
-      this.addedToast.set(false);
+    if (this.cartService.addToCart(prod, this.quantity(), this.selectedSize())) {
       this.modalService.close();
-    }, 1200);
+    }
   }
 
   getSpecsList() {

@@ -7,7 +7,7 @@
   <div class="offcanvas-body d-flex flex-column justify-content-between">
     <!-- Lista de Artículos -->
     <div class="overflow-auto pe-1" style="max-height: 50vh;">
-      @for (item of cartService.cart(); track item.product.id) {
+      @for (item of cartService.cart(); track item.product.id + ':' + item.selectedSize) {
         <div class="d-flex gap-3 mb-3 pb-3 border-bottom border-dark border-opacity-10 align-items-center">
           <img [src]="item.product.image" [alt]="item.product.name" class="rounded-3" style="width: 70px; height: 85px; object-fit: cover;">
           
@@ -46,6 +46,7 @@
     @if (cartService.cart().length > 0) {
       <div class="border-top border-dark border-opacity-10 pt-3">
         <!-- Input de Cupones -->
+        @if (!exhibitionMode) {
         <div class="mb-3">
           <div class="input-group input-group-sm">
             <input type="text" class="form-control bg-white border-0" placeholder="Código de cupón (PROFE100)" 
@@ -59,6 +60,7 @@
             <small class="text-danger mt-1 d-block">Código inválido. Prueba con PROFE100</small>
           }
         </div>
+        }
 
         <div class="d-flex justify-content-between small text-muted mb-1">
           <span>Subtotal</span>
@@ -78,7 +80,7 @@
         </div>
 
         <button class="btn btn-dark w-100 rounded-pill py-3 text-uppercase small tracking-wide shadow-sm" (click)="goToCheckout()">
-          Proceder al Checkout <i class="bi bi-arrow-right ms-2"></i>
+          {{ exhibitionMode ? 'Revisar compra' : 'Proceder al Checkout' }} <i class="bi bi-arrow-right ms-2"></i>
         </button>
       </div>
     }

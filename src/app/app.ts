@@ -1,4 +1,3 @@
-import { exhibitionMode } from './catalog-mode';
 import { Component, inject, signal, HostListener } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -21,7 +20,6 @@ export type InfoModalType = 'shipping' | 'terms' | 'contact' | null;
   styleUrl: './app.css'
 })
 export class App {
-  readonly exhibitionMode = exhibitionMode;
   title = 'aevon-outlet';
 
   cartService = inject(CartService);

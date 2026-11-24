@@ -33,13 +33,10 @@
 
           <p class="text-secondary small mb-3">{{ prod.description }}</p>
 
-          @if (exhibitionMode) {
-            <p class="text-muted small mb-0">Tallas del catálogo: {{ exhibitionSizes() }}</p>
-          } @else {
-<!-- Tallas -->
+          <!-- Tallas -->
           <div class="mb-3">
             <label class="small fw-bold text-dark d-block mb-2">Talla:</label>
-            <div class="d-flex gap-2">
+            <div class="d-flex flex-wrap gap-2">
               @for (size of availableSizes(); track size) {
                 <button class="btn btn-sm rounded-pill px-3"
                         [ngClass]="selectedSize() === size ? 'btn-dark' : 'btn-outline-dark'"
@@ -63,12 +60,6 @@
             </button>
           </div>
 
-          @if (addedToast()) {
-            <div class="alert alert-success py-2 px-3 small rounded-pill mb-0 text-center" role="alert">
-              <i class="bi bi-check-circle-fill me-1"></i> ¡Prenda agregada con éxito!
-            </div>
-          }
-}
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart';
+import { exhibitionMode } from '../../catalog-mode';
 
 @Component({
   selector: 'app-cart-drawer',
@@ -12,6 +13,7 @@ import { CartService } from '../../services/cart';
   styleUrl: './cart-drawer.css'
 })
 export class CartDrawer {
+  readonly exhibitionMode = exhibitionMode;
   cartService = inject(CartService);
   router = inject(Router);
 

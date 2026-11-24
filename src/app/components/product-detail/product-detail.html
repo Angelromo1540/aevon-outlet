@@ -49,14 +49,13 @@
 
         <p class="text-secondary leading-relaxed mb-4">{{ prod.description }}</p>
 
-        @if (!exhibitionMode) {
-<!-- Selector de Tallas -->
+        <!-- Selector de Tallas -->
         <div class="mb-4">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <label class="small fw-bold text-dark">Selecciona tu Talla:</label>
             <a href="#" class="small text-muted text-decoration-none"><i class="bi bi-rulers me-1"></i>Guía de medidas</a>
           </div>
-          <div class="d-flex gap-2">
+          <div class="d-flex flex-wrap gap-2">
             @for (size of availableSizes(); track size) {
               <button class="btn btn-sm rounded-pill px-3 py-2"
                       [ngClass]="selectedSize() === size ? 'btn-dark' : 'btn-outline-dark'"
@@ -89,7 +88,7 @@
         }
 
 
-}<!-- Tabla de Ficha Técnica -->
+        <!-- Tabla de Ficha Técnica -->
         <div class="border-top border-dark border-opacity-10 pt-4">
           <h5 class="font-serif mb-3">Especificaciones de Confección</h5>
           <table class="table table-sm table-borderless text-secondary small">

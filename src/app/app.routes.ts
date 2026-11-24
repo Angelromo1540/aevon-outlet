@@ -11,11 +11,9 @@ import { exhibitionMode } from './catalog-mode';
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'producto/:id', component: ProductDetail },
-  ...(!exhibitionMode ? [
-    { path: 'checkout', component: Checkout },
-    { path: 'login', component: Auth },
-    { path: 'admin', component: Admin },
-  ] : []),
+  { path: 'checkout', component: Checkout },
+  { path: 'login', component: Auth },
+  ...(exhibitionMode ? [] : [{ path: 'admin', component: Admin }]),
   { path: 'legal', component: Legal },
   { path: '**', redirectTo: '' }
 ];
